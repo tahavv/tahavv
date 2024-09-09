@@ -12,7 +12,7 @@ Experienced Full Stack Developer proficient in Java and Angular, passionate abou
 
 - 😊 I’m looking for help with open source projects, hackathons, internships, and entry-level opportunities.
 - 💼 Job interests: Software Engineer, Front End Engineer,Back End Engineer, or UI Engineer.
-- 📫 You can [view my resume](#) and contact me by emailing taha.ayari@iteam-univ.tn.
+- 📫 You can [view my resume](Ayari-Taha-CV.pdf) and contact me by emailing taha.ayari@iteam-univ.tn.
 
 ##
 <h3 align="left">🛠 Language and tools</h3>
