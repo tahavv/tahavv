@@ -1,5 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      SMTP_HOST: process.env.SMTP_HOST,
+      SMTP_PORT: process.env.SMTP_PORT,
+      SMTP_USER: process.env.SMTP_USER,
+      RECEIVER_EMAIL: process.env.RECEIVER_EMAIL,
+    },
+    private: {
+      SMTP_PASS: process.env.SMTP_PASS,
+    },
+  },
   devtools: { enabled: true },
   modules: [
     "@nuxtjs/tailwindcss",
@@ -10,6 +21,7 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
   ],
   app: {
+    baseURL: "/tahavv/",
     pageTransition: { name: "page", mode: "out-in" },
     head: {
       title: "Taha Ayari | Full Stack Developer",
