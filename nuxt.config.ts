@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
   ],
   app: {
-    baseURL: "/tahavv/",
+    baseURL: "/",
     pageTransition: { name: "page", mode: "out-in" },
     head: {
       title: "Taha Ayari | Full Stack Developer",
