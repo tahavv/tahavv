@@ -3,8 +3,10 @@ export const profile = {
   title: 'Software Engineer | Cloud & Platform',
   location: 'Tunisia',
   email: 'taha.ayari@iteam-univ.tn',
-  linkedin: 'https://www.linkedin.com/in/taha-ayari-090a0b199/',
-  github: 'https://github.com/tahavv'
+  linkedin: 'https://www.linkedin.com/in/taha-ayari-700b823b9',
+  github: 'https://github.com/tahavv',
+  portfolio: 'https://tahavv-production.up.railway.app',
+  whatsapp: 'https://wa.me/92201282'
 }
 
 export const experience = [
@@ -107,6 +109,14 @@ export const featuredProjects = [
 ]
 
 export const certifications = [
-  'Red Hat Certified System Administrator (RHCSA)',
-  'Cisco NDG Linux Essentials'
+  {
+    title: 'Red Hat Certified System Administrator (RHCSA)',
+    badgeId: '4993ff00-5e5d-4d1a-a766-6a987a2b97aa',
+    link: 'https://www.credly.com/badges/4993ff00-5e5d-4d1a-a766-6a987a2b97aa/public_url'
+  },
+  {
+    title: 'Cisco NDG Linux Essentials',
+    badgeId: '73e284dc-dbb8-4438-8729-726cc166328f',
+    link: 'https://www.credly.com/badges/73e284dc-dbb8-4438-8729-726cc166328f/public_url'
+  }
 ]
