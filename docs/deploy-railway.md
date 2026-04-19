@@ -34,9 +34,14 @@ Set these in Railway project variables:
 - `SMTP_SOCKET_TIMEOUT` (default: `10000`)
 - `SMTP_SEND_TIMEOUT` (default: `12000`, caps full send operation)
 
+### Optional SMTP TLS behavior
+- `SMTP_SECURE` (`true`/`false`, default inferred from port: `465 => true`, otherwise `false`)
+- `SMTP_REQUIRE_TLS` (`true`/`false`, default: opposite of `SMTP_SECURE`)
+
 If contact form requests fail with connection timeout errors:
 - Verify `SMTP_HOST` and `SMTP_PORT` are correct for your provider.
 - Use port `465` for implicit TLS or `587` for STARTTLS (secure is inferred automatically by port).
+- For Gmail, if `587` is blocked by the runtime network, the API now retries once with implicit TLS on `465`.
 - Confirm your runtime/network allows outbound TCP connections to your SMTP provider.
 
 ### Runtime defaults

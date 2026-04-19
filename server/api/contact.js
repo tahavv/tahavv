@@ -9,6 +9,36 @@ function toNumberOrFallback(value, fallback) {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback
 }
 
+function toBooleanOrFallback(value, fallback) {
+  if (typeof value === 'boolean') {
+    return value
+  }
+
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase()
+    if (['true', '1', 'yes', 'on'].includes(normalized)) {
+      return true
+    }
+
+    if (['false', '0', 'no', 'off'].includes(normalized)) {
+      return false
+    }
+  }
+
+  return fallback
+}
+
+async function sendContactMail({ transportOptions, sendTimeout, payload }) {
+  const transporter = nodemailer.createTransport(transportOptions)
+
+  return Promise.race([
+    transporter.sendMail(payload),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(Object.assign(new Error('SMTP send timeout'), { code: 'ESENDTIMEOUT' })), sendTimeout)
+    )
+  ])
+}
+
 export default defineEventHandler(async (event) => {
   if (event.method !== 'POST') {
     throw createError({ statusCode: 405, statusMessage: 'Method not allowed.' })
@@ -39,7 +69,9 @@ export default defineEventHandler(async (event) => {
   const greetingTimeout = toNumberOrFallback(config.smtpGreetingTimeout, 5000)
   const socketTimeout = toNumberOrFallback(config.smtpSocketTimeout, 10000)
   const sendTimeout = toNumberOrFallback(config.smtpSendTimeout, 12000)
-  const secure = port === 465
+  const secure = toBooleanOrFallback(config.smtpSecure, port === 465)
+  const requireTLS = toBooleanOrFallback(config.smtpRequireTls, !secure)
+  const isGmailHost = /(^|\.)gmail\.com$/i.test(host || '')
 
   // Temporary diagnostics to verify env wiring in production without leaking secrets.
   console.info('Contact API SMTP env presence', {
@@ -48,6 +80,8 @@ export default defineEventHandler(async (event) => {
     smtpUser: Boolean(user),
     smtpPass: Boolean(pass),
     receiverEmail: Boolean(receiverEmail),
+    smtpSecure: config.smtpSecure ?? null,
+    smtpRequireTls: config.smtpRequireTls ?? null,
     smtpConnectionTimeout: config.smtpConnectionTimeout ?? null,
     smtpGreetingTimeout: config.smtpGreetingTimeout ?? null,
     smtpSocketTimeout: config.smtpSocketTimeout ?? null,
@@ -61,11 +95,11 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const transporter = nodemailer.createTransport({
+  const baseTransportOptions = {
     host,
     port,
     secure,
-    requireTLS: !secure,
+    requireTLS,
     auth: {
       user,
       pass
@@ -76,31 +110,61 @@ export default defineEventHandler(async (event) => {
     connectionTimeout,
     greetingTimeout,
     socketTimeout
-  })
+  }
+
+  const mailPayload = {
+    from: `Portfolio Contact <${user}>`,
+    to: receiverEmail,
+    replyTo: email,
+    subject: `Contact Form: ${subject}`,
+    text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    html: `
+      <h3>New portfolio contact message</h3>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Subject:</strong> ${subject}</p>
+      <p><strong>Message:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
+    `
+  }
 
   try {
-    await Promise.race([
-      transporter.sendMail({
-        from: `Portfolio Contact <${user}>`,
-        to: receiverEmail,
-        replyTo: email,
-        subject: `Contact Form: ${subject}`,
-        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-        html: `
-          <h3>New portfolio contact message</h3>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Subject:</strong> ${subject}</p>
-          <p><strong>Message:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
-        `
-      }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(Object.assign(new Error('SMTP send timeout'), { code: 'ESENDTIMEOUT' })), sendTimeout)
-      )
-    ])
+    await sendContactMail({
+      transportOptions: baseTransportOptions,
+      sendTimeout,
+      payload: mailPayload
+    })
 
     return { success: true, message: 'Email sent successfully.' }
   } catch (error) {
+    const shouldRetryWithImplicitTls =
+      (error?.code === 'ETIMEDOUT' || error?.code === 'ESENDTIMEOUT' || error?.command === 'CONN') &&
+      isGmailHost &&
+      port === 587 &&
+      !secure
+
+    if (shouldRetryWithImplicitTls) {
+      try {
+        await sendContactMail({
+          transportOptions: {
+            ...baseTransportOptions,
+            port: 465,
+            secure: true,
+            requireTLS: false
+          },
+          sendTimeout,
+          payload: mailPayload
+        })
+
+        return {
+          success: true,
+          message: 'Email sent successfully using Gmail TLS fallback (port 465).'
+        }
+      } catch (retryError) {
+        console.error('Contact API sendMail retry error:', retryError)
+        error = retryError
+      }
+    }
+
     console.error('Contact API sendMail error:', error)
     const isConnectionTimeout =
       error?.code === 'ETIMEDOUT' || error?.code === 'ESENDTIMEOUT' || error?.command === 'CONN'
