@@ -6,6 +6,8 @@ export default defineNuxtConfig({
     smtpUser: process.env.SMTP_USER,
     smtpPass: process.env.SMTP_PASS,
     receiverEmail: process.env.RECEIVER_EMAIL,
+    smtpSecure: process.env.SMTP_SECURE,
+    smtpRequireTls: process.env.SMTP_REQUIRE_TLS,
     smtpConnectionTimeout: process.env.SMTP_CONNECTION_TIMEOUT,
     smtpGreetingTimeout: process.env.SMTP_GREETING_TIMEOUT,
     smtpSocketTimeout: process.env.SMTP_SOCKET_TIMEOUT,
