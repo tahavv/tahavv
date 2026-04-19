@@ -1,0 +1,49 @@
+# Deploying This Portfolio on Railway
+
+This project is configured for Nuxt 3 SSR deployment on Railway.
+
+## 1) Prerequisites
+- A Railway account
+- This repository pushed to GitHub/GitLab/Bitbucket
+- SMTP credentials if you want the contact form API to send emails
+
+## 2) Create a New Railway Project
+1. Open Railway dashboard.
+2. Click **New Project**.
+3. Choose **Deploy from GitHub repo** (or your connected provider).
+4. Select this repository and target branch.
+
+## 3) Confirm Build & Start Commands
+Railway uses `railway.json` in this repo:
+- Build command: `npm run build`
+- Start command: `npm run start`
+
+## 4) Configure Environment Variables
+Set these in Railway project variables:
+
+### Required for contact form email delivery
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `RECEIVER_EMAIL`
+
+### Runtime defaults
+- `NITRO_PORT` is provided by Railway automatically.
+- `NODE_ENV=production` is recommended.
+
+## 5) Deploy
+1. Trigger deployment from Railway (or push to the configured branch).
+2. Wait for build to complete.
+3. Open the generated Railway domain and validate the site.
+
+## 6) Post-Deploy Validation Checklist
+- Homepage sections load: About, Experience, Projects, Certifications, Contact.
+- Project detail pages load correctly.
+- Dark mode toggle works.
+- Contact form API works (if SMTP variables are configured).
+
+## 7) Optional Custom Domain
+1. Go to **Settings → Domains** in Railway.
+2. Add custom domain (e.g., `portfolio.yourdomain.com`).
+3. Configure DNS records as instructed by Railway.

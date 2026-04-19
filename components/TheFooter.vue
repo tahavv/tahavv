@@ -5,8 +5,7 @@
                 <div class="mb-6 md:mb-0">
                     <h2 class="text-2xl font-bold mb-2">Taha Ayari</h2>
                     <p class="text-gray-400 max-w-md">
-                        Full Stack Developer specializing in Java, Angular, and Python. Building scalable, real-time
-                        solutions with microservices and cloud technologies.
+                        Software Engineer focused on cloud and platform systems, modern web applications, and dependable delivery workflows.
                     </p>
                 </div>
 
@@ -49,6 +48,7 @@ const navigationItems = [
     { name: 'About', href: '/#about' },
     { name: 'Experience', href: '/#experience' },
     { name: 'Projects', href: '/#projects' },
+    { name: 'Certifications', href: '/#certifications' },
     { name: 'Contact', href: '/#contact' }
 ]
 </script>
