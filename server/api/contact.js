@@ -5,6 +5,24 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 }
 
+function toEmailOrFallback(value, fallback = '') {
+  if (typeof value !== 'string') {
+    return fallback
+  }
+
+  const trimmed = value.trim()
+  if (isValidEmail(trimmed)) {
+    return trimmed
+  }
+
+  const matched = trimmed.match(/<([^>]+)>/)
+  if (matched?.[1] && isValidEmail(matched[1].trim())) {
+    return matched[1].trim()
+  }
+
+  return fallback
+}
+
 function toNumberOrFallback(value, fallback) {
   const parsed = Number(value)
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback
@@ -121,11 +139,19 @@ export default defineEventHandler(async (event) => {
 
   const isSmtpConfigured = Boolean(host && port && user && pass)
   const isMailtrapConfigured = Boolean(mailtrapToken && (!mailtrapSandbox || mailtrapTestInboxId > 0))
+  const mailtrapFromAddress = toEmailOrFallback(user, toEmailOrFallback(receiverEmail))
 
   if (!isSmtpConfigured && !isMailtrapConfigured) {
     throw createError({
       statusCode: 500,
       statusMessage: 'Email service is not configured. Set SMTP variables or MAILTRAP_* fallback.'
+    })
+  }
+
+  if (isMailtrapConfigured && !mailtrapFromAddress) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Mailtrap fallback is missing a valid sender email (set SMTP_USER or RECEIVER_EMAIL).'
     })
   }
 
@@ -210,10 +236,7 @@ export default defineEventHandler(async (event) => {
           sendTimeout,
           payload: {
             ...mailPayload,
-            from: {
-              address: user || 'hello@example.com',
-              name: 'Portfolio Contact'
-            },
+            from: mailtrapFromAddress,
             to: [receiverEmail]
           }
         })
@@ -251,10 +274,7 @@ export default defineEventHandler(async (event) => {
       sendTimeout,
       payload: {
         ...mailPayload,
-        from: {
-          address: 'hello@example.com',
-          name: 'Portfolio Contact'
-        },
+        from: mailtrapFromAddress,
         to: [receiverEmail]
       }
     })
