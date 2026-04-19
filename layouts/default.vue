@@ -28,7 +28,6 @@
         </main>
 
         <TheFooter />
-
     </div>
 </template>
 
