@@ -1,15 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   runtimeConfig: {
-    public: {
-      SMTP_HOST: process.env.SMTP_HOST,
-      SMTP_PORT: process.env.SMTP_PORT,
-      SMTP_USER: process.env.SMTP_USER,
-      RECEIVER_EMAIL: process.env.RECEIVER_EMAIL,
-    },
-    private: {
-      SMTP_PASS: process.env.SMTP_PASS,
-    },
+    smtpHost: process.env.SMTP_HOST,
+    smtpPort: process.env.SMTP_PORT,
+    smtpUser: process.env.SMTP_USER,
+    smtpPass: process.env.SMTP_PASS,
+    receiverEmail: process.env.RECEIVER_EMAIL,
+    public: {},
   },
   devtools: { enabled: true },
   modules: [
@@ -24,22 +21,27 @@ export default defineNuxtConfig({
     baseURL: "/",
     pageTransition: { name: "page", mode: "out-in" },
     head: {
-      title: "Taha Ayari | Full Stack Developer",
+      title: "Taha Ayari | Software Engineer | Cloud & Platform",
       meta: [
         {
           name: "description",
           content:
-            "Portfolio of Taha Ayari, a results-driven Full Stack Developer with expertise in Java, Angular, and Python",
+            "Portfolio of Taha Ayari, Software Engineer focused on Cloud & Platform systems, CI/CD delivery, observability, and production web applications.",
         },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { name: "og:title", content: "Taha Ayari | Full Stack Developer" },
         {
-          name: "og:description",
+          name: "keywords",
           content:
-            "Portfolio of Taha Ayari, a results-driven Full Stack Developer with expertise in Java, Angular, and Python",
+            "Software Engineer, Cloud Engineer, Platform Engineer, DevOps, Kubernetes, Docker, Jenkins, Angular, Spring Boot, GCP",
         },
-        { name: "og:type", content: "website" },
-        { name: "og:url", content: "https://tahaayari.dev" },
+        { property: "og:title", content: "Taha Ayari | Software Engineer | Cloud & Platform" },
+        {
+          property: "og:description",
+          content:
+            "Software Engineer building scalable web platforms, cloud-native deployments, and reliable CI/CD systems.",
+        },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: "https://tahaayari.dev" },
       ],
     },
   },
@@ -52,8 +54,8 @@ export default defineNuxtConfig({
   },
   colorMode: {
     classSuffix: "",
-    preference: "dark", // default value of $colorMode.preference
-    fallback: "light", // fallback value if not system preference found
+    preference: "dark",
+    fallback: "light",
   },
   css: ["~/assets/css/main.css"],
   tailwindcss: {

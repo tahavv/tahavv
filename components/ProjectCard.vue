@@ -12,13 +12,9 @@
                         class="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-white/40 transition-all duration-300 hover:scale-110">
                         <Icon name="mdi:github" class="w-5 h-5" />
                     </a>
-                    <a v-if="project.liveDemo" :href="project.liveDemo" target="_blank" rel="noopener noreferrer"
-                        class="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-white/40 transition-all duration-300 hover:scale-110">
-                        <Icon name="heroicons:globe-alt" class="w-5 h-5" />
-                    </a>
                     <NuxtLink :to="`/projects/${project.id}`"
                         class="bg-gradient-to-r from-amber-500 to-blue-600 text-white px-4 py-1 rounded-full hover:from-amber-600 hover:to-blue-700 transition-all duration-300 text-sm font-medium hover:scale-105">
-                        View Details
+                        Case Study
                     </NuxtLink>
                 </div>
             </div>
@@ -29,7 +25,8 @@
                 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors duration-300">
                 {{ project.title }}
             </h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{{ project.description }}</p>
+            <p class="text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">{{ project.tagline }}</p>
+            <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">{{ project.description }}</p>
 
             <div class="flex flex-wrap gap-2 mb-4">
                 <span v-for="tech in project.technologies.slice(0, 3)" :key="tech"
@@ -38,13 +35,12 @@
                 </span>
                 <span v-if="project.technologies.length > 3"
                     class="text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 py-1 px-2 rounded">
-                    +{{ project.technologies.length - 3 }} more
+                    +{{ project.technologies.length - 3 }}
                 </span>
             </div>
 
-            <NuxtLink :to="`/projects/${project.id}`"
-                class="text-blue-600 dark:text-blue-400 font-medium inline-flex items-center group">
-                View Project
+            <NuxtLink :to="`/projects/${project.id}`" class="text-blue-600 dark:text-blue-400 font-medium inline-flex items-center group">
+                View details
                 <Icon name="heroicons:arrow-right"
                     class="ml-1 w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
             </NuxtLink>

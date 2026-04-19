@@ -3,16 +3,19 @@
         <AboutSection id="about" />
         <ExperienceSection id="experience" />
         <ProjectsSection id="projects" />
+        <CertificationsSection id="certifications" />
         <ContactSection id="contact" />
     </div>
 </template>
 
 <script setup>
-// SEO metadata
 useHead({
-    title: 'Taha Ayari | Full Stack Developer',
+    title: 'Taha Ayari | Software Engineer | Cloud & Platform',
     meta: [
-        { name: 'description', content: 'Results-driven Full Stack Developer with expertise in Java, Angular, and Python. Skilled in microservices, cloud computing, and event-driven architectures.' }
+        {
+            name: 'description',
+            content: 'Software Engineer focused on Cloud & Platform systems. Building scalable web applications, CI/CD workflows, and production-ready services using Angular, Spring Boot, Docker, Kubernetes, and GCP.'
+        }
     ]
 })
 </script>
