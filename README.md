@@ -14,10 +14,14 @@ I build reliable software systems across **application, cloud, and platform** la
 My focus is on **scalable web platforms**, **CI/CD delivery**, and **observability-driven operations**.
 
 ## 🛠️ Core Stack
-- **Backend:** Spring Boot, Express.js
-- **Frontend:** Angular, Nuxt.js
-- **Cloud & Platform:** Docker, Kubernetes, GCP, Jenkins, Argo CD
-- **Data & Observability:** PostgreSQL, Spark Streaming, Grafana, Prometheus
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white)
+![GCP](https://img.shields.io/badge/GCP-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white)
 
 ## 💼 Experience Highlights
 - **Software Engineer (Freelance), Everbloo-Adenis** — Global reservation platform (flight/rail/hotel), NDC/GDS integrations, CI/CD and GCP deployments.
@@ -25,8 +29,8 @@ My focus is on **scalable web platforms**, **CI/CD delivery**, and **observabili
 - **Previous internships, Elite Business** — Telecom CDR dashboards, ETL platform redesign, and full-stack delivery.
 
 ## 🏅 Certifications
-- Red Hat Certified System Administrator (**RHCSA**)
-- Cisco **NDG Linux Essentials**
+![RHCSA](https://img.shields.io/badge/RHCSA-EE0000?style=flat-square&logo=redhat&logoColor=white)
+![Cisco NDG Linux Essentials](https://img.shields.io/badge/Cisco_NDG_Linux_Essentials-1BA0D7?style=flat-square&logo=cisco&logoColor=white)
 
 ## 📫 Contact
 - **Email:** taha.ayari@iteam-univ.tn
