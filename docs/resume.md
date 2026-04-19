@@ -1,0 +1,69 @@
+# Taha Ayari
+**Software Engineer | Cloud & Platform**  
+[City, Country] • [Phone] • [Email] • [LinkedIn URL] • [GitHub URL]
+
+## Professional Summary
+Software Engineer with hands-on experience delivering full-stack and platform-oriented systems in telecom and travel technology environments. Strong background in Angular + Spring Boot application development, CI/CD automation with Jenkins and Argo CD, containerized deployments with Docker and Kubernetes, and observability tooling with Grafana and Prometheus. Known for building reliable production workflows, collaborating across teams, and maintaining scalable web platforms.
+
+## Core Competencies
+- Cloud & Platform Engineering
+- CI/CD Pipeline Implementation
+- Containerization & Orchestration
+- Full-Stack Web Application Development
+- Microservices Collaboration
+- Incident Management & Observability
+- Telecom CDR Reporting & ETL Workflows
+- Fraud Monitoring Platform Delivery
+- Agile Cross-Functional Collaboration
+
+## Technical Skills
+**Languages:** Java, JavaScript, TypeScript, SQL  
+**Frameworks/Libraries:** Spring Boot, Angular, Express.js, Nuxt.js  
+**Cloud & DevOps:** Docker, Kubernetes, Jenkins, Argo CD, Google Cloud Platform (GCP), Git  
+**Data & Monitoring:** PostgreSQL, Spark Streaming, Apache Hadoop, Grafana, Prometheus  
+**Practices:** CI/CD, service deployment, dashboard development, production support
+
+## Professional Experience
+
+### Software Engineer (Freelance) | Everbloo-Adenis
+**Feb 2025 – Present**
+- Contribute to a global reservation platform spanning flight, rail, and hotel booking experiences with NDC/GDS integrations.
+- Collaborate on microservices deployment workflows to GCP for consistent service delivery.
+- Support CI/CD implementation using Jenkins and Argo CD to improve release and promotion workflows.
+- Tech stack: Express.js, Nuxt.js, Argo CD, GCP, Docker, Kubernetes, PostgreSQL.
+
+### Software Engineer | Elite Business
+**Jul 2023 – Present**
+- Optimize and maintain telecom reporting dashboard platforms for operational analytics.
+- Developed and deployed CaseTools, an incident management/reporting platform integrated with Grafana and Prometheus.
+- Developed and deployed a fraud management platform supporting monitoring, detection, blocking, and blacklisting workflows.
+- Implement CI/CD pipelines with Jenkins, Docker, and Kubernetes for local and cloud deployments.
+- Tech stack: Angular, Spring Boot, Jenkins, Docker, Kubernetes, Grafana, Prometheus, Spark Streaming.
+
+### Full Stack Developer Intern | Elite Business
+**Jan 2023 – Jun 2023**
+- Developed and maintained scalable reporting dashboard web applications for telecom CDR analysis and visualization.
+- Implemented CI/CD pipelines with Jenkins and Docker.
+- Contributed to maintainable full-stack delivery practices across Angular and Spring Boot services.
+- Tech stack: Angular, Spring Boot, Jenkins, Docker.
+
+### Full Stack Developer Intern | Elite Business
+**Jun 2022 – Sep 2022**
+- Collaborated on redesigning a telecom CDR ETL platform.
+- Developed and optimized front-end functionalities aligned with backend processing.
+- Contributed to data-heavy workflows using Spark Streaming and Apache Hadoop.
+- Tech stack: Angular, Spring Boot, Git, Docker, PostgreSQL, Spark Streaming, Apache Hadoop.
+
+## Certifications
+- Red Hat Certified System Administrator (RHCSA)
+- Cisco NDG Linux Essentials
+
+## Selected Projects
+### Fraud Management Platform
+Built and deployed a platform for telecom fraud monitoring, detection, blocking, and blacklisting workflows.
+
+### CaseTools Incident Platform
+Developed an incident management and reporting platform integrated with Grafana and Prometheus for observability-driven operations.
+
+### Global Reservation Platform
+Contributed to a multi-provider reservation system (flight/rail/hotel) with NDC/GDS integration and cloud deployment collaboration on GCP.

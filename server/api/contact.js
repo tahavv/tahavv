@@ -1,38 +1,69 @@
-import nodemailer from 'nodemailer';
-import 'dotenv/config';
+import nodemailer from 'nodemailer'
 
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+}
 
 export default defineEventHandler(async (event) => {
-    const body = await readBody(event);
+  const body = await readBody(event)
+  const name = body?.name?.trim()
+  const email = body?.email?.trim()
+  const subject = body?.subject?.trim()
+  const message = body?.message?.trim()
 
-    if (!body.name || !body.email || !body.subject || !body.message) {
-        return { success: false, error: "All fields are required." };
+  if (!name || !email || !subject || !message) {
+    throw createError({ statusCode: 400, statusMessage: 'All fields are required.' })
+  }
+
+  if (!isValidEmail(email)) {
+    throw createError({ statusCode: 400, statusMessage: 'Please provide a valid email address.' })
+  }
+
+  const config = useRuntimeConfig(event)
+  const host = config.smtpHost
+  const port = Number(config.smtpPort)
+  const user = config.smtpUser
+  const pass = config.smtpPass
+  const receiverEmail = config.receiverEmail
+
+  if (!host || !port || !user || !pass || !receiverEmail) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Email service is not configured. Please set SMTP environment variables.'
+    })
+  }
+
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: {
+      user,
+      pass
     }
+  })
 
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false, 
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS
-        }
-    });
+  try {
+    await transporter.verify()
 
-    try {
-        await transporter.sendMail({
-            from: `"${body.name}" <${body.email}>`,
-            to: process.env.RECEIVER_EMAIL,
-            subject: `Contact Form: ${body.subject}`,
-            text: body.message,
-            html: `<p><strong>Name:</strong> ${body.name}</p>
-                   <p><strong>Email:</strong> ${body.email}</p>
-                   <p><strong>Subject:</strong> ${body.subject}</p>
-                   <p><strong>Message:</strong> ${body.message}</p>`
-        });
+    await transporter.sendMail({
+      from: `Portfolio Contact <${user}>`,
+      to: receiverEmail,
+      replyTo: email,
+      subject: `Contact Form: ${subject}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      html: `
+        <h3>New portfolio contact message</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
+      `
+    })
 
-        return { success: true, message: "Email sent successfully!" };
-    } catch (error) {
-        return { success: false, error: "Failed to send email." };
-    }
-});
+    return { success: true, message: 'Email sent successfully.' }
+  } catch (error) {
+    console.error('Contact API sendMail error:', error)
+    throw createError({ statusCode: 500, statusMessage: 'Failed to send email.' })
+  }
+})

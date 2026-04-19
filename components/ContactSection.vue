@@ -10,8 +10,8 @@
                     class="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
                     <div class="p-6 sm:p-8">
                         <p class="text-gray-700 dark:text-gray-300 mb-8 text-center">
-                            Have a project in mind or want to discuss collaboration opportunities?
-                            Fill out the form below, and I'll get back to you as soon as possible.
+                            Interested in collaborating on software engineering, cloud, or platform initiatives?
+                            Send a message and I will get back to you as soon as possible.
                         </p>
 
                         <form @submit.prevent="submitForm" class="space-y-6">
@@ -69,20 +69,17 @@
             </div>
         </div>
 
-        <!-- Toast Notifications -->
-        <!-- Success Toast -->
         <transition name="fade-scale">
             <div v-if="showSuccess" class="toaster bg-green-500 text-white">
                 <Icon name="heroicons:check-circle" class="w-5 h-5 mr-2 inline" />
-                Message sent successfully!
+                {{ statusMessage }}
             </div>
         </transition>
 
-        <!-- Error Toast -->
         <transition name="fade-scale">
             <div v-if="showError" class="toaster bg-red-500 text-white">
                 <Icon name="heroicons:x-circle" class="w-5 h-5 mr-2 inline" />
-                Error sending message. Please try again.
+                {{ statusMessage }}
             </div>
         </transition>
 
@@ -91,7 +88,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useFetch } from '#app'
 
 defineProps({
     id: {
@@ -110,25 +106,30 @@ const form = ref({
 const isSubmitting = ref(false)
 const showSuccess = ref(false)
 const showError = ref(false)
+const statusMessage = ref('')
 
 async function submitForm() {
     isSubmitting.value = true
     showSuccess.value = false
     showError.value = false
+    statusMessage.value = ''
 
     try {
-        const { data, error } = await useFetch('/api/contact', {
+        const response = await $fetch('/api/contact', {
             method: 'POST',
             body: form.value
         })
 
-        if (data.value?.success) {
+        if (response?.success) {
+            statusMessage.value = response.message || 'Message sent successfully!'
             showSuccess.value = true
             form.value = { name: '', email: '', subject: '', message: '' }
         } else {
+            statusMessage.value = 'Error sending message. Please try again.'
             showError.value = true
         }
     } catch (error) {
+        statusMessage.value = error?.data?.statusMessage || 'Error sending message. Please try again.'
         showError.value = true
     } finally {
         isSubmitting.value = false
@@ -136,13 +137,13 @@ async function submitForm() {
         setTimeout(() => {
             showSuccess.value = false
             showError.value = false
+            statusMessage.value = ''
         }, 5000)
     }
 }
 </script>
 
 <style scoped>
-/* Fade animation */
 .fade-scale-enter-active,
 .fade-scale-leave-active {
     transition: all 0.5s ease;
@@ -154,13 +155,11 @@ async function submitForm() {
     transform: scale(0.95);
 }
 
-/* Toaster always on top */
 .toaster {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 9999;
-    /* Ensure it's above everything */
     padding: 10px 15px;
     border-radius: 8px;
     font-weight: bold;
