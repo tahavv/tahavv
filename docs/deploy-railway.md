@@ -28,6 +28,16 @@ Set these in Railway project variables:
 - `SMTP_PASS`
 - `RECEIVER_EMAIL`
 
+### Optional SMTP timeout tuning (milliseconds)
+- `SMTP_CONNECTION_TIMEOUT` (default: `10000`)
+- `SMTP_GREETING_TIMEOUT` (default: `10000`)
+- `SMTP_SOCKET_TIMEOUT` (default: `20000`)
+
+If contact form requests fail with connection timeout errors:
+- Verify `SMTP_HOST` and `SMTP_PORT` are correct for your provider.
+- Use port `465` for implicit TLS or `587` for STARTTLS (secure is inferred automatically by port).
+- Confirm your runtime/network allows outbound TCP connections to your SMTP provider.
+
 ### Runtime defaults
 - `NITRO_PORT` is provided by Railway automatically.
 - `NODE_ENV=production` is recommended.
