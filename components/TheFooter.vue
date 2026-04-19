@@ -18,7 +18,6 @@
                     <Icon name="mdi:whatsapp" class="w-5 h-5" />
                 </a>
             </div>
-            <p class="text-xs text-text-muted/50 font-mono">Crafted with Deepmind</p>
         </div>
     </footer>
 </template>
