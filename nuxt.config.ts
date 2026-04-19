@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     smtpSocketTimeout: process.env.SMTP_SOCKET_TIMEOUT,
     smtpSendTimeout: process.env.SMTP_SEND_TIMEOUT,
     mailtrapToken: process.env.MAILTRAP_TOKEN,
+    mailtrapHost: process.env.MAILTRAP_HOST,
     mailtrapSandbox: process.env.MAILTRAP_SANDBOX,
     mailtrapTestInboxId: process.env.MAILTRAP_TEST_INBOX_ID,
     public: {},
