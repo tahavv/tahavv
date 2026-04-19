@@ -13,35 +13,49 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
-        heading: ["Poppins", "sans-serif"],
+        mono: ["'JetBrains Mono'", "monospace"], // Optional for pure dev look
       },
       colors: {
-        blue: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
+        background: '#000000',
+        surface: {
+          50: '#111111',
+          100: '#1a1a1a',
+          200: '#2a2a2a',
+          300: '#333333',
         },
+        border: {
+          DEFAULT: '#333',
+          glow: '#666',
+        },
+        text: {
+          primary: '#ffffff',
+          secondary: '#888888',
+          muted: '#666666'
+        }
       },
       animation: {
-        "bounce-slow": "bounce 3s infinite",
-        "fade-in": "fadeIn 1.5s ease-in-out",
-        "slide-in": "slideIn 1.2s ease-out",
+        "fade-in": "fadeIn 1s ease-out forwards",
+        "fade-in-up": "fadeInUp 1s ease-out forwards",
+        "spotlight": "spotlight 2s ease .75s 1 forwards",
       },
       keyframes: {
         fadeIn: {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
-        slideIn: {
-          "0%": { transform: "translateY(30px)", opacity: 0 },
-          "100%": { transform: "translateY(0)", opacity: 1 },
+        fadeInUp: {
+          "0%": { opacity: 0, transform: "translateY(20px)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
+        spotlight: {
+          "0%": {
+            opacity: 0,
+            transform: "translate(-50%, -50%) scale(0.5)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translate(-50%, -50%) scale(1)",
+          },
         },
       },
     },

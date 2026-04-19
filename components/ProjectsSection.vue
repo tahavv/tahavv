@@ -1,14 +1,21 @@
 <template>
-    <section :id="id" class="section bg-white dark:bg-gray-900">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-title text-gray-900 dark:text-white">Featured Projects</h2>
-            <p class="text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto -mt-8 mb-10">
-                Case-study style highlights from telecom and travel platforms with emphasis on delivery workflows,
-                observability, and production readiness.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <ProjectCard v-for="project in featuredProjects" :key="project.id" :project="project" />
+    <section :id="id" class="w-full relative px-4 md:px-8 py-32 border-t border-border">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-4xl font-extrabold tracking-tight text-white mb-16">Projects.</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <ProjectCard 
+                    v-for="project in featuredProjects" 
+                    :key="project.id" 
+                    :project="project"
+                />
+            </div>
+            
+            <div class="mt-16 text-center">
+               <a href="https://github.com/tahavv" target="_blank" rel="noopener noreferrer" class="btn-secondary group">
+                   Explore GitHub
+                   <Icon name="mdi:arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+               </a>
             </div>
         </div>
     </section>

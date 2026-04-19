@@ -1,15 +1,18 @@
 <template>
-    <section :id="id" class="section bg-gray-50 dark:bg-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-title text-gray-900 dark:text-white">Certifications</h2>
-            <div class="max-w-3xl mx-auto grid gap-4">
-                <article v-for="cert in certifications" :key="cert"
-                    class="bg-white dark:bg-gray-900 rounded-lg p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <div class="flex items-center gap-3">
-                        <Icon name="heroicons:academic-cap" class="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                        <p class="text-gray-900 dark:text-gray-100 font-medium">{{ cert }}</p>
-                    </div>
-                </article>
+    <section :id="id" class="w-full relative px-4 md:px-8 py-32 border-t border-border">
+        <div class="max-w-4xl mx-auto w-full">
+            <h2 class="text-4xl font-extrabold tracking-tight text-white mb-12">Certifications.</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div v-for="cert in certifications" :key="cert" 
+                      class="flex flex-col p-6 rounded-lg border border-surface-200 bg-surface-50 hover:bg-surface-100 transition-colors duration-300">
+                      
+                      <div class="flex items-start gap-4">
+                          <Icon name="carbon:certificate" class="w-8 h-8 text-white opacity-80 shrink-0" />
+                          <h3 class="text-base font-bold text-white">{{ cert }}</h3>
+                      </div>
+                      
+                 </div>
             </div>
         </div>
     </section>

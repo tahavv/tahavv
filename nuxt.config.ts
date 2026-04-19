@@ -26,13 +26,14 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "Portfolio of Taha Ayari, Software Engineer focused on Cloud & Platform systems, CI/CD delivery, observability, and production web applications.",
+            "Portfolio of Taha Ayari, Software Engineer focused on Cloud & Platform systems. Discover my projects, experience in Kubernetes, Docker, and full-stack development.",
         },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "theme-color", content: "#0f172a" },
         {
           name: "keywords",
           content:
-            "Software Engineer, Cloud Engineer, Platform Engineer, DevOps, Kubernetes, Docker, Jenkins, Angular, Spring Boot, GCP",
+            "Software Engineer, Cloud Engineer, Platform Engineer, DevOps, Kubernetes, Docker, Jenkins, Angular, Spring Boot, GCP, Nuxt",
         },
         { property: "og:title", content: "Taha Ayari | Software Engineer | Cloud & Platform" },
         {
@@ -42,13 +43,20 @@ export default defineNuxtConfig({
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: "https://tahaayari.dev" },
+        { property: "og:image", content: "https://tahaayari.dev/images/og-image.jpg" }, // Placeholder for actual og image
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: "Taha Ayari | Software Engineer" },
+        { name: "twitter:description", content: "Portfolio and projects of Taha Ayari." }
       ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ]
     },
   },
   googleFonts: {
     families: {
-      Inter: [400, 500, 600, 700],
-      Poppins: [400, 500, 600, 700],
+      Outfit: [300, 400, 500, 600, 700],
+      'Plus+Jakarta+Sans': [400, 500, 600, 700],
     },
     display: "swap",
   },

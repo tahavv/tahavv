@@ -1,85 +1,36 @@
 <template>
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-        <header class="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-sm z-50 transition-all duration-300">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
-                    <!-- Logo/Name -->
-                    <div class="flex-shrink-0">
-                        <NuxtLink to="/"
-                            class="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
-                            <span class="text-amber-600 dark:text-amber-400">T</span>aha Ayari
-                        </NuxtLink>
-                    </div>
+    <div class="min-h-screen bg-background text-text-primary">
+        
+        <!-- Subtle Animated Background Grid -->
+        <div class="fixed inset-0 z-0 pointer-events-none" style="background-image: radial-gradient(#1a1a1a 1px, transparent 1px); background-size: 32px 32px; opacity: 0.5;"></div>
 
-                    <!-- Desktop Navigation -->
-                    <nav class="hidden md:flex items-center space-x-8">
-                        <NuxtLink v-for="item in navigationItems" :key="item.name" :to="item.href"
-                            class="text-gray-600 hover:text-amber-600 dark:text-gray-300 dark:hover:text-amber-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                            {{ item.name }}
-                        </NuxtLink>
-                        <DarkModeToggle />
-                    </nav>
-
-                    <!-- Mobile menu button and dark mode toggle -->
-                    <div class="md:hidden flex items-center space-x-3">
-                        <DarkModeToggle />
-                        <button @click="isMobileMenuOpen = !isMobileMenuOpen"
-                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white focus:outline-none">
-                            <span class="sr-only">Open main menu</span>
-                            <Icon v-if="!isMobileMenuOpen" name="heroicons:bars-3" class="block h-6 w-6"
-                                aria-hidden="true" />
-                            <Icon v-else name="heroicons:x-mark" class="block h-6 w-6" aria-hidden="true" />
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Navigation Menu -->
-            <Transition name="slide-down">
-                <div v-show="isMobileMenuOpen"
-                    class="md:hidden bg-white dark:bg-gray-800 shadow-lg transition-all duration-300">
-                    <div class="px-2 pt-2 pb-3 space-y-1">
-                        <NuxtLink v-for="item in navigationItems" :key="item.name" :to="item.href"
-                            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-amber-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-amber-400 dark:hover:bg-gray-700 transition-colors duration-200"
-                            @click="isMobileMenuOpen = false">
-                            {{ item.name }}
-                        </NuxtLink>
-                    </div>
-                </div>
-            </Transition>
+        <!-- Floating Navigation Pill (Bottom on Mobile, Top on Desktop) -->
+        <header class="fixed bottom-6 lg:bottom-auto lg:top-8 left-1/2 -translate-x-1/2 z-50">
+            <nav class="flex items-center space-x-1 sm:space-x-2 bg-surface-50/80 backdrop-blur-xl border border-border rounded-full px-2 sm:px-4 py-2 shadow-2xl">
+                <NuxtLink v-for="item in navigationItems" :key="item.name" :to="item.href"
+                    class="relative px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-text-secondary hover:text-white transition-colors duration-300 group">
+                    <span class="relative z-10">{{ item.name }}</span>
+                    <!-- Hover pill background -->
+                    <div class="absolute inset-0 bg-surface-200 rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 z-0"></div>
+                </NuxtLink>
+            </nav>
         </header>
 
-        <main class="pt-16">
+        <main class="relative z-10 flex flex-col items-center">
             <slot />
         </main>
 
-        <TheFooter />
     </div>
 </template>
 
 <script setup>
-const isMobileMenuOpen = ref(false)
-
 const navigationItems = [
     { name: 'About', href: '/#about' },
     { name: 'Experience', href: '/#experience' },
     { name: 'Projects', href: '/#projects' },
-    { name: 'Certifications', href: '/#certifications' },
     { name: 'Contact', href: '/#contact' }
 ]
+
+// Note: Removing Certifications from the primary dock to keep it extremely minimal.
+// It will still be accessible via scrolling. Dark mode toggle is removed as the design is pure dark.
 </script>
-
-<style scoped>
-.slide-down-enter-active,
-.slide-down-leave-active {
-    transition: all 0.3s ease-in-out;
-    max-height: 300px;
-    overflow: hidden;
-}
-
-.slide-down-enter-from,
-.slide-down-leave-to {
-    max-height: 0;
-    opacity: 0;
-}
-</style>
