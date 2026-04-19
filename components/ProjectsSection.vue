@@ -1,7 +1,9 @@
 <template>
-    <section :id="id" class="w-full relative px-4 md:px-8 py-32 border-t border-border">
-        <div class="max-w-6xl mx-auto w-full">
-            <h2 class="text-4xl font-extrabold tracking-tight text-white mb-16">Projects.</h2>
+    <section :id="id" class="w-full relative px-4 md:px-8 py-32 border-t border-white/5">
+        <div class="max-w-6xl mx-auto w-full relative z-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
+                <span class="bg-gradient-to-r from-primary-400 to-secondary-400 text-transparent bg-clip-text">Projects.</span>
+            </h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <ProjectCard 

@@ -3,8 +3,9 @@
 # Taha Ayari
 ### Software Engineer | Cloud & Platform
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-taha--ayari-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/taha-ayari-090a0b199/)
-[![Portfolio](https://img.shields.io/badge/Portfolio-tahaayari.dev-111827?style=for-the-badge&logo=google-chrome&logoColor=white)](https://tahaayari.dev)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-taha--ayari-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/taha-ayari-700b823b9)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live_Deployment-111827?style=for-the-badge&logo=google-chrome&logoColor=white)](https://tahavv-production.up.railway.app)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-92201282-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/92201282)
 [![GitHub](https://img.shields.io/badge/GitHub-tahavv-181717?style=for-the-badge&logo=github)](https://github.com/tahavv)
 
 </div>
@@ -34,7 +35,8 @@ My focus is on **scalable web platforms**, **CI/CD delivery**, and **observabili
 
 ## 📫 Contact
 - **Email:** taha.ayari@iteam-univ.tn
-- **LinkedIn:** https://www.linkedin.com/in/taha-ayari-090a0b199/
+- **LinkedIn:** https://www.linkedin.com/in/taha-ayari-700b823b9
+- **WhatsApp:** https://wa.me/92201282
 
 ---
 

@@ -1,11 +1,28 @@
 <template>
-    <footer class="w-full border-t border-border bg-background py-12 px-4 md:px-8 text-center text-sm font-mono text-text-muted">
-        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>&copy; {{ new Date().getFullYear() }} Taha Ayari. All rights reserved.</p>
-            <div class="flex items-center gap-4">
-                <a href="https://github.com/tahavv" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub</a>
-                <a href="https://linkedin.com/in/taha-ayari" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">LinkedIn</a>
+    <footer class="w-full relative z-10 py-8 px-4 border-t border-white/5 bg-background/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-text-muted font-medium">
+                © {{ new Date().getFullYear() }} Taha Ayari. All rights reserved.
+            </p>
+            <div class="flex gap-4">
+                <a :href="profile.github" target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white transition-colors">
+                    <Icon name="mdi:github" class="w-5 h-5" />
+                </a>
+                <a :href="profile.linkedin" target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white transition-colors">
+                    <Icon name="mdi:linkedin" class="w-5 h-5" />
+                </a>
+                <a v-if="profile.portfolio" :href="profile.portfolio" target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white transition-colors">
+                    <Icon name="mdi:web" class="w-5 h-5" />
+                </a>
+                <a v-if="profile.whatsapp" :href="profile.whatsapp" target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white transition-colors">
+                    <Icon name="mdi:whatsapp" class="w-5 h-5" />
+                </a>
             </div>
+            <p class="text-xs text-text-muted/50 font-mono">Crafted with Deepmind</p>
         </div>
     </footer>
 </template>
+
+<script setup>
+import { profile } from '~/content/profile'
+</script>

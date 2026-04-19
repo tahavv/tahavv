@@ -1,35 +1,53 @@
 <template>
-    <section :id="id" class="w-full relative px-4 md:px-8 py-32 border-t border-border">
-        <div class="max-w-4xl mx-auto w-full">
-            <h2 class="text-4xl font-extrabold tracking-tight text-white mb-12">Certifications.</h2>
+    <section :id="id" class="w-full relative px-4 md:px-8 py-32 border-t border-white/5">
+        <div class="max-w-4xl mx-auto w-full relative z-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-16">
+                <span class="bg-gradient-to-r from-primary-400 to-secondary-400 text-transparent bg-clip-text">Certifications.</span>
+            </h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                 <div v-for="cert in certificationItems" :key="cert.label" 
-                      class="flex flex-col p-6 rounded-lg border border-surface-200 bg-surface-50 hover:bg-surface-100 transition-colors duration-300">
-                      
-                      <div class="flex items-start gap-4">
-                          <Icon :name="cert.icon" class="w-8 h-8 text-white opacity-80 shrink-0" />
-                          <h3 class="text-base font-bold text-white">{{ cert.label }}</h3>
-                      </div>
-                      
-                 </div>
+            <div class="flex flex-wrap justify-center gap-8">
+                <div v-for="(cert, index) in certifications" :key="index"
+                     class="glass-panel p-6 flex flex-col items-center justify-center hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(45,212,191,0.15)] transition-all">
+                     
+                     <div 
+                        data-iframe-width="150" 
+                        data-iframe-height="270" 
+                        :data-share-badge-id="cert.badgeId" 
+                        data-share-badge-host="https://www.credly.com">
+                     </div>
+                     
+                     <a v-if="cert.link" :href="cert.link" target="_blank" rel="noopener noreferrer" 
+                        class="mt-4 text-sm font-medium text-text-muted hover:text-primary-400 transition-colors flex items-center gap-2">
+                        Verify Credential <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                     </a>
+                </div>
             </div>
+            
         </div>
     </section>
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import { certifications } from '~/content/profile'
 
-const iconMap = {
-    'Red Hat Certified System Administrator (RHCSA)': 'simple-icons:redhat',
-    'Cisco NDG Linux Essentials': 'simple-icons:cisco'
-}
-
-const certificationItems = certifications.map((label) => ({
-    label,
-    icon: iconMap[label] || 'heroicons:academic-cap'
-}))
+onMounted(() => {
+    // Remove existing embed script if present to ensure a clean re-bind
+    const existingScript = document.getElementById('credly-embed-script')
+    if (existingScript) {
+        existingScript.remove()
+    }
+    
+    // Dynamically inject script after component is mounted and DOM is populated
+    setTimeout(() => {
+        const script = document.createElement('script')
+        script.id = 'credly-embed-script'
+        script.src = '//cdn.credly.com/assets/utilities/embed.js'
+        script.async = true
+        script.type = 'text/javascript'
+        document.body.appendChild(script)
+    }, 100)
+})
 
 defineProps({
     id: {
