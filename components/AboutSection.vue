@@ -28,8 +28,14 @@
                             <p class="font-semibold text-gray-900 dark:text-white">Cloud, Platform Engineering, Full-Stack Delivery</p>
                         </div>
                         <div class="rounded-lg bg-gray-50 dark:bg-gray-800 p-4">
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Core Stack</p>
-                            <p class="font-semibold text-gray-900 dark:text-white">Angular, Spring Boot, Docker, Kubernetes, Jenkins</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Core Stack</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span v-for="item in coreStackIcons" :key="item.label"
+                                    class="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600">
+                                    <Icon :name="item.icon" class="w-4 h-4" />
+                                    {{ item.label }}
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -64,6 +70,14 @@
 <script setup>
 import { profile } from '~/content/profile'
 import profileImage from '~/assets/images/profile.jpg'
+
+const coreStackIcons = [
+    { label: 'Angular', icon: 'mdi:angular' },
+    { label: 'Spring Boot', icon: 'simple-icons:springboot' },
+    { label: 'Docker', icon: 'mdi:docker' },
+    { label: 'Kubernetes', icon: 'mdi:kubernetes' },
+    { label: 'Jenkins', icon: 'simple-icons:jenkins' }
+]
 
 defineProps({
     id: {
