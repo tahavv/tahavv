@@ -28,6 +28,11 @@ Set these in Railway project variables:
 - `SMTP_PASS`
 - `RECEIVER_EMAIL`
 
+> **Important Railway plan limitation (SMTP):**
+> Railway blocks outbound SMTP traffic on **Free**, **Trial**, and **Hobby** plans. This causes connection timeout errors with SMTP-based senders (for example Nodemailer using Gmail SMTP).
+>
+> Outbound SMTP is available only on **Pro** (and above). After upgrading, **re-deploy** your service so the networking policy is applied to your running instance.
+
 ### Optional SMTP timeout tuning (milliseconds)
 - `SMTP_CONNECTION_TIMEOUT` (default: `5000`)
 - `SMTP_GREETING_TIMEOUT` (default: `5000`)
@@ -43,6 +48,22 @@ If contact form requests fail with connection timeout errors:
 - Use port `465` for implicit TLS or `587` for STARTTLS (secure is inferred automatically by port).
 - For Gmail, if `587` is blocked by the runtime network, the API now retries once with implicit TLS on `465`.
 - Confirm your runtime/network allows outbound TCP connections to your SMTP provider.
+
+If you are on Free/Trial/Hobby (or still seeing SMTP timeouts on Pro), use a transactional email provider with an HTTPS API instead of SMTP. Recommended options:
+- Resend
+- SendGrid
+- Mailgun
+- Postmark
+
+These API-based providers bypass SMTP egress restrictions and work across Railway plans.
+
+If you are on Pro and SMTP still fails, SSH into your Railway service and test reachability to your SMTP host on ports:
+- `25`
+- `465`
+- `587`
+- `2525`
+
+If ports are reachable from Railway but email still fails, your email provider may be blocking Railway IP ranges.
 
 ### Runtime defaults
 - `NITRO_PORT` is provided by Railway automatically.
