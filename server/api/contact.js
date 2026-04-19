@@ -8,12 +8,13 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const name = body?.name?.trim()
   const email = body?.email?.trim()
-  const subject = body?.subject?.trim()
   const message = body?.message?.trim()
 
-  if (!name || !email || !subject || !message) {
-    throw createError({ statusCode: 400, statusMessage: 'All fields are required.' })
+  if (!name || !email || !message) {
+    throw createError({ statusCode: 400, statusMessage: 'Name, email, and message are required.' })
   }
+
+  const subject = body?.subject?.trim() || `Portfolio message from ${name}`
 
   if (!isValidEmail(email)) {
     throw createError({ statusCode: 400, statusMessage: 'Please provide a valid email address.' })
