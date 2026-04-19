@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     smtpConnectionTimeout: process.env.SMTP_CONNECTION_TIMEOUT,
     smtpGreetingTimeout: process.env.SMTP_GREETING_TIMEOUT,
     smtpSocketTimeout: process.env.SMTP_SOCKET_TIMEOUT,
+    smtpSendTimeout: process.env.SMTP_SEND_TIMEOUT,
     public: {},
   },
   devtools: { enabled: true },

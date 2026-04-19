@@ -29,9 +29,10 @@ Set these in Railway project variables:
 - `RECEIVER_EMAIL`
 
 ### Optional SMTP timeout tuning (milliseconds)
-- `SMTP_CONNECTION_TIMEOUT` (default: `10000`)
-- `SMTP_GREETING_TIMEOUT` (default: `10000`)
-- `SMTP_SOCKET_TIMEOUT` (default: `20000`)
+- `SMTP_CONNECTION_TIMEOUT` (default: `5000`)
+- `SMTP_GREETING_TIMEOUT` (default: `5000`)
+- `SMTP_SOCKET_TIMEOUT` (default: `10000`)
+- `SMTP_SEND_TIMEOUT` (default: `12000`, caps full send operation)
 
 If contact form requests fail with connection timeout errors:
 - Verify `SMTP_HOST` and `SMTP_PORT` are correct for your provider.
