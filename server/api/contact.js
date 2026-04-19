@@ -26,6 +26,9 @@ export default defineEventHandler(async (event) => {
   const user = config.smtpUser
   const pass = config.smtpPass
   const receiverEmail = config.receiverEmail
+  const connectionTimeout = Number(config.smtpConnectionTimeout || 10000)
+  const greetingTimeout = Number(config.smtpGreetingTimeout || 10000)
+  const socketTimeout = Number(config.smtpSocketTimeout || 20000)
 
   if (!host || !port || !user || !pass || !receiverEmail) {
     throw createError({
@@ -41,12 +44,13 @@ export default defineEventHandler(async (event) => {
     auth: {
       user,
       pass
-    }
+    },
+    connectionTimeout,
+    greetingTimeout,
+    socketTimeout
   })
 
   try {
-    await transporter.verify()
-
     await transporter.sendMail({
       from: `Portfolio Contact <${user}>`,
       to: receiverEmail,
@@ -65,6 +69,13 @@ export default defineEventHandler(async (event) => {
     return { success: true, message: 'Email sent successfully.' }
   } catch (error) {
     console.error('Contact API sendMail error:', error)
-    throw createError({ statusCode: 500, statusMessage: 'Failed to send email.' })
+    const isConnectionTimeout = error?.code === 'ETIMEDOUT' || error?.command === 'CONN'
+
+    throw createError({
+      statusCode: isConnectionTimeout ? 504 : 500,
+      statusMessage: isConnectionTimeout
+        ? 'Email provider connection timed out. Verify SMTP host/port and outbound network access.'
+        : 'Failed to send email.'
+    })
   }
 })
