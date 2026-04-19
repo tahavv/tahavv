@@ -28,25 +28,32 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted, nextTick } from 'vue'
 import { certifications } from '~/content/profile'
 
-onMounted(() => {
-    // Remove existing embed script if present to ensure a clean re-bind
+onMounted(async () => {
+    // Wait for DOM to be fully populated before injecting the embed script
+    await nextTick()
+
+    // Remove any stale instance to ensure a clean re-bind
     const existingScript = document.getElementById('credly-embed-script')
     if (existingScript) {
         existingScript.remove()
     }
-    
-    // Dynamically inject script after component is mounted and DOM is populated
-    setTimeout(() => {
-        const script = document.createElement('script')
-        script.id = 'credly-embed-script'
-        script.src = '//cdn.credly.com/assets/utilities/embed.js'
-        script.async = true
-        script.type = 'text/javascript'
-        document.body.appendChild(script)
-    }, 100)
+
+    const script = document.createElement('script')
+    script.id = 'credly-embed-script'
+    script.src = '//cdn.credly.com/assets/utilities/embed.js'
+    script.async = true
+    script.type = 'text/javascript'
+    document.body.appendChild(script)
+})
+
+onUnmounted(() => {
+    const script = document.getElementById('credly-embed-script')
+    if (script) {
+        script.remove()
+    }
 })
 
 defineProps({

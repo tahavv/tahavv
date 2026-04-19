@@ -43,7 +43,7 @@ export default defineNuxtConfig({
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: "https://tahaayari.dev" },
-        { property: "og:image", content: "https://tahaayari.dev/images/og-image.jpg" }, // Placeholder for actual og image
+        { property: "og:image", content: "https://tahaayari.dev/images/taha.jpeg" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: "Taha Ayari | Software Engineer" },
         { name: "twitter:description", content: "Portfolio and projects of Taha Ayari." }

@@ -15,7 +15,7 @@
 
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white mb-6 leading-[1.1]">
                     {{ profile.name }}. <br/>
-                    <span class="bg-gradient-to-br from-primary-400 to-secondary-400 text-transparent bg-clip-text">{{ profile.title.split('|')[0].trim() }}.</span>
+                    <span class="bg-gradient-to-br from-primary-400 to-secondary-400 text-transparent bg-clip-text">{{ (String(profile.title || '').split('|')[0] ?? '').trim() }}.</span>
                 </h1>
 
                 <p class="text-xl md:text-2xl text-text-muted max-w-2xl mx-auto lg:mx-0 font-medium tracking-tight mb-10">
