@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import { MailtrapTransport } from 'mailtrap'
 
 function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
@@ -39,6 +40,23 @@ async function sendContactMail({ transportOptions, sendTimeout, payload }) {
   ])
 }
 
+async function sendContactMailWithMailtrap({ token, sandbox, testInboxId, sendTimeout, payload }) {
+  const transporter = nodemailer.createTransport(
+    MailtrapTransport({
+      token,
+      sandbox,
+      ...(sandbox ? { testInboxId } : {})
+    })
+  )
+
+  return Promise.race([
+    transporter.sendMail(payload),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(Object.assign(new Error('Mailtrap send timeout'), { code: 'EMAILTRAPTIMEOUT' })), sendTimeout)
+    )
+  ])
+}
+
 export default defineEventHandler(async (event) => {
   if (event.method !== 'POST') {
     throw createError({ statusCode: 405, statusMessage: 'Method not allowed.' })
@@ -72,6 +90,9 @@ export default defineEventHandler(async (event) => {
   const secure = toBooleanOrFallback(config.smtpSecure, port === 465)
   const requireTLS = toBooleanOrFallback(config.smtpRequireTls, !secure)
   const isGmailHost = /(^|\.)gmail\.com$/i.test(host || '')
+  const mailtrapToken = config.mailtrapToken
+  const mailtrapSandbox = toBooleanOrFallback(config.mailtrapSandbox, true)
+  const mailtrapTestInboxId = toNumberOrFallback(config.mailtrapTestInboxId, 0)
 
   // Temporary diagnostics to verify env wiring in production without leaking secrets.
   console.info('Contact API SMTP env presence', {
@@ -85,13 +106,26 @@ export default defineEventHandler(async (event) => {
     smtpConnectionTimeout: config.smtpConnectionTimeout ?? null,
     smtpGreetingTimeout: config.smtpGreetingTimeout ?? null,
     smtpSocketTimeout: config.smtpSocketTimeout ?? null,
-    smtpSendTimeout: config.smtpSendTimeout ?? null
+    smtpSendTimeout: config.smtpSendTimeout ?? null,
+    mailtrapToken: Boolean(mailtrapToken),
+    mailtrapSandbox: config.mailtrapSandbox ?? null,
+    mailtrapTestInboxId: config.mailtrapTestInboxId ?? null
   })
 
-  if (!host || !port || !user || !pass || !receiverEmail) {
+  if (!receiverEmail) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'Email service is not configured. Please set SMTP environment variables.'
+      statusMessage: 'Email service is not configured. Please set RECEIVER_EMAIL.'
+    })
+  }
+
+  const isSmtpConfigured = Boolean(host && port && user && pass)
+  const isMailtrapConfigured = Boolean(mailtrapToken && (!mailtrapSandbox || mailtrapTestInboxId > 0))
+
+  if (!isSmtpConfigured && !isMailtrapConfigured) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Email service is not configured. Set SMTP variables or MAILTRAP_* fallback.'
     })
   }
 
@@ -128,13 +162,15 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    await sendContactMail({
-      transportOptions: baseTransportOptions,
-      sendTimeout,
-      payload: mailPayload
-    })
+    if (isSmtpConfigured) {
+      await sendContactMail({
+        transportOptions: baseTransportOptions,
+        sendTimeout,
+        payload: mailPayload
+      })
 
-    return { success: true, message: 'Email sent successfully.' }
+      return { success: true, message: 'Email sent successfully.' }
+    }
   } catch (error) {
     const shouldRetryWithImplicitTls =
       (error?.code === 'ETIMEDOUT' || error?.code === 'ESENDTIMEOUT' || error?.command === 'CONN') &&
@@ -165,14 +201,76 @@ export default defineEventHandler(async (event) => {
       }
     }
 
+    if (isMailtrapConfigured) {
+      try {
+        await sendContactMailWithMailtrap({
+          token: mailtrapToken,
+          sandbox: mailtrapSandbox,
+          testInboxId: mailtrapTestInboxId,
+          sendTimeout,
+          payload: {
+            ...mailPayload,
+            from: {
+              address: user || 'hello@example.com',
+              name: 'Portfolio Contact'
+            },
+            to: [receiverEmail]
+          }
+        })
+
+        return {
+          success: true,
+          message: 'Email sent successfully using Mailtrap API fallback.'
+        }
+      } catch (mailtrapError) {
+        console.error('Contact API Mailtrap fallback error:', mailtrapError)
+        error = mailtrapError
+      }
+    }
+
     console.error('Contact API sendMail error:', error)
     const isConnectionTimeout =
-      error?.code === 'ETIMEDOUT' || error?.code === 'ESENDTIMEOUT' || error?.command === 'CONN'
+      error?.code === 'ETIMEDOUT' ||
+      error?.code === 'ESENDTIMEOUT' ||
+      error?.code === 'EMAILTRAPTIMEOUT' ||
+      error?.command === 'CONN'
 
     throw createError({
       statusCode: isConnectionTimeout ? 504 : 500,
       statusMessage: isConnectionTimeout
-        ? 'Email provider connection timed out. Verify SMTP host/port and outbound network access.'
+        ? 'Email provider connection timed out. Verify SMTP/Mailtrap settings and outbound network access.'
+        : 'Failed to send email.'
+    })
+  }
+
+  try {
+    await sendContactMailWithMailtrap({
+      token: mailtrapToken,
+      sandbox: mailtrapSandbox,
+      testInboxId: mailtrapTestInboxId,
+      sendTimeout,
+      payload: {
+        ...mailPayload,
+        from: {
+          address: 'hello@example.com',
+          name: 'Portfolio Contact'
+        },
+        to: [receiverEmail]
+      }
+    })
+
+    return {
+      success: true,
+      message: 'Email sent successfully using Mailtrap API.'
+    }
+  } catch (error) {
+    console.error('Contact API Mailtrap API error:', error)
+    const isConnectionTimeout = error?.code === 'EMAILTRAPTIMEOUT'
+
+    throw createError({
+      statusCode: isConnectionTimeout ? 504 : 500,
+      statusMessage: isConnectionTimeout
+        ? 'Mailtrap request timed out. Verify MAILTRAP_* settings and outbound network access.'
         : 'Failed to send email.'
     })
   }
