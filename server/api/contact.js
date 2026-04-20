@@ -47,6 +47,14 @@ function toBooleanOrFallback(value, fallback) {
   return fallback
 }
 
+function normalizeMailtrapToken(value) {
+  if (typeof value !== 'string') {
+    return ''
+  }
+
+  return value.trim().replace(/^Bearer\s+/i, '')
+}
+
 async function sendContactMail({ transportOptions, sendTimeout, payload }) {
   const transporter = nodemailer.createTransport(transportOptions)
 
@@ -138,7 +146,7 @@ export default defineEventHandler(async (event) => {
   const secure = toBooleanOrFallback(config.smtpSecure, port === 465)
   const requireTLS = toBooleanOrFallback(config.smtpRequireTls, !secure)
   const isGmailHost = /(^|\.)gmail\.com$/i.test(host || '')
-  const mailtrapToken = config.mailtrapToken
+  const mailtrapToken = normalizeMailtrapToken(config.mailtrapToken)
   const mailtrapHost = typeof config.mailtrapHost === 'string' ? config.mailtrapHost.trim() : ''
   const mailtrapSandbox = toBooleanOrFallback(config.mailtrapSandbox, true)
   const mailtrapTestInboxId = toNumberOrFallback(config.mailtrapTestInboxId, 0)
