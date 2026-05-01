@@ -47,6 +47,14 @@ function toBooleanOrFallback(value, fallback) {
   return fallback
 }
 
+function normalizeMailtrapToken(value) {
+  if (typeof value !== 'string') {
+    return ''
+  }
+
+  return value.trim().replace(/^Bearer\s+/i, '')
+}
+
 async function sendContactMail({ transportOptions, sendTimeout, payload }) {
   const transporter = nodemailer.createTransport(transportOptions)
 
@@ -69,6 +77,36 @@ async function sendContactMailWithMailtrap({ token, sandbox, testInboxId, sendTi
 
   return Promise.race([
     transporter.sendMail(payload),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(Object.assign(new Error('Mailtrap send timeout'), { code: 'EMAILTRAPTIMEOUT' })), sendTimeout)
+    )
+  ])
+}
+
+async function sendContactMailWithMailtrapHost({ token, host, sandbox, testInboxId, sendTimeout, payload }) {
+  const normalizedHost = typeof host === 'string' ? host.trim().replace(/\/+$/, '') : ''
+  const endpoint = sandbox && testInboxId > 0
+    ? `${normalizedHost}/api/send/${testInboxId}`
+    : `${normalizedHost}/api/send`
+
+  const mailtrapPayload = {
+    from: { email: payload.from },
+    to: Array.isArray(payload.to) ? payload.to.map((address) => ({ email: address })) : [{ email: payload.to }],
+    subject: payload.subject,
+    text: payload.text,
+    html: payload.html,
+    ...(payload.replyTo ? { reply_to: { email: payload.replyTo } } : {})
+  }
+
+  return Promise.race([
+    $fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: mailtrapPayload
+    }),
     new Promise((_, reject) =>
       setTimeout(() => reject(Object.assign(new Error('Mailtrap send timeout'), { code: 'EMAILTRAPTIMEOUT' })), sendTimeout)
     )
@@ -108,7 +146,8 @@ export default defineEventHandler(async (event) => {
   const secure = toBooleanOrFallback(config.smtpSecure, port === 465)
   const requireTLS = toBooleanOrFallback(config.smtpRequireTls, !secure)
   const isGmailHost = /(^|\.)gmail\.com$/i.test(host || '')
-  const mailtrapToken = config.mailtrapToken
+  const mailtrapToken = normalizeMailtrapToken(config.mailtrapToken)
+  const mailtrapHost = typeof config.mailtrapHost === 'string' ? config.mailtrapHost.trim() : ''
   const mailtrapSandbox = toBooleanOrFallback(config.mailtrapSandbox, true)
   const mailtrapTestInboxId = toNumberOrFallback(config.mailtrapTestInboxId, 0)
 
@@ -126,6 +165,7 @@ export default defineEventHandler(async (event) => {
     smtpSocketTimeout: config.smtpSocketTimeout ?? null,
     smtpSendTimeout: config.smtpSendTimeout ?? null,
     mailtrapToken: Boolean(mailtrapToken),
+    mailtrapHost: config.mailtrapHost ?? null,
     mailtrapSandbox: config.mailtrapSandbox ?? null,
     mailtrapTestInboxId: config.mailtrapTestInboxId ?? null
   })
@@ -228,18 +268,24 @@ export default defineEventHandler(async (event) => {
     }
 
     if (isMailtrapConfigured) {
+      const mailtrapOptions = {
+        token: mailtrapToken,
+        sandbox: mailtrapSandbox,
+        testInboxId: mailtrapTestInboxId,
+        sendTimeout,
+        payload: {
+          ...mailPayload,
+          from: mailtrapFromAddress,
+          to: [receiverEmail]
+        }
+      }
+
       try {
-        await sendContactMailWithMailtrap({
-          token: mailtrapToken,
-          sandbox: mailtrapSandbox,
-          testInboxId: mailtrapTestInboxId,
-          sendTimeout,
-          payload: {
-            ...mailPayload,
-            from: mailtrapFromAddress,
-            to: [receiverEmail]
-          }
-        })
+        if (mailtrapHost) {
+          await sendContactMailWithMailtrapHost({ ...mailtrapOptions, host: mailtrapHost })
+        } else {
+          await sendContactMailWithMailtrap(mailtrapOptions)
+        }
 
         return {
           success: true,
@@ -267,7 +313,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    await sendContactMailWithMailtrap({
+    const mailtrapOptions = {
       token: mailtrapToken,
       sandbox: mailtrapSandbox,
       testInboxId: mailtrapTestInboxId,
@@ -277,7 +323,16 @@ export default defineEventHandler(async (event) => {
         from: mailtrapFromAddress,
         to: [receiverEmail]
       }
-    })
+    }
+
+    if (mailtrapHost) {
+      await sendContactMailWithMailtrapHost({
+        ...mailtrapOptions,
+        host: mailtrapHost
+      })
+    } else {
+      await sendContactMailWithMailtrap(mailtrapOptions)
+    }
 
     return {
       success: true,
