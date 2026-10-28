@@ -23,3 +23,6 @@ logs
 .env.*
 !.env.example
 AGENTS.md
+
+# Vercel CLI and prebuilt output
+.vercel
