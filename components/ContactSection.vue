@@ -34,11 +34,12 @@ async function submit() {
             <div class="contact__text">
                 <ChapterLabel no="07" name="Contact" />
                 <h2 id="contact-title" data-chars>Your next platform, with Taha.</h2>
-                <p class="contact__lead" data-reveal>Open to software engineering opportunities in cloud, platform and product development. Tell me what you are building.</p>
+                <p class="contact__lead" data-reveal>Hiring for a full-stack, cloud or DevOps role? I’m open to new opportunities, remote or in Tunis. Send a message, email me, or download my CV.</p>
                 <dl class="contact__facts" data-reveal>
                     <div><dt>Email</dt><dd><a :href="`mailto:${profile.email}`">{{ profile.email }}</a></dd></div>
                     <div><dt>LinkedIn</dt><dd><a :href="profile.linkedin" rel="me noreferrer" target="_blank">in/taha-ayari-700b823b9</a></dd></div>
                     <div><dt>GitHub</dt><dd><a :href="profile.github" rel="me noreferrer" target="_blank">tahavv</a></dd></div>
+                    <div><dt>CV</dt><dd><a :href="profile.cv" download>Download the PDF</a></dd></div>
                     <div><dt>Based in</dt><dd>{{ profile.location }}</dd></div>
                 </dl>
             </div>

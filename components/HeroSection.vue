@@ -25,18 +25,18 @@ onBeforeUnmount(() => context?.revert())
 <template>
     <section ref="root" class="hero" aria-labelledby="hero-title" data-scene="ramp" data-chapter="Welcome">
         <div class="container hero__inner">
-            <p class="hero__tag pixel-glitch">Software engineer in {{ profile.location }}</p>
+            <p class="hero__tag pixel-glitch">Software Engineer · Full-Stack &amp; Cloud · {{ profile.location }}</p>
             <div class="hero__grid">
                 <h1 id="hero-title" class="hero__title">
                     <span class="line"><span data-line>Hi, I’m Taha.</span></span>
-                    <span class="line"><span class="glitch" data-text="I build ideas into impact." aria-hidden="true"><span data-line>I build ideas into impact.</span></span><span class="sr-only">I build ideas into impact.</span></span>
+                    <span class="line"><span class="glitch" data-text="I build it, then I ship it." aria-hidden="true"><span data-line>I build it, then I ship it.</span></span><span class="sr-only">I build it, then I ship it.</span></span>
                 </h1>
                 <div class="hero__aside">
-                    <p class="hero__lead">I’m a <strong>Software Engineer</strong> who turns complex ideas into dependable web, cloud and platform products—from the first interface to the infrastructure that keeps them moving.</p>
+                    <p class="hero__lead"><strong>3+ years</strong> building production systems in travel tech and telecom: Angular, React and Nuxt front ends, Spring Boot and Node services, and the <strong>Docker, Kubernetes and CI/CD</strong> pipelines that ship them. Red Hat certified (RHCSA).</p>
                     <TerminalIntro />
                     <div class="hero__actions">
-                        <a class="btn btn--lead" href="#work">See the work</a>
-                        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+                        <a class="btn btn--lead" href="#work">See my work</a>
+                        <a class="btn btn--ghost" :href="profile.cv" download>Download CV</a>
                     </div>
                 </div>
             </div>

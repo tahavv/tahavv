@@ -231,6 +231,9 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .step__meta { display: flex; align-items: center; gap: var(--space-sm); color: var(--color-sheet-muted) !important; font: 500 var(--text-xs)/1 var(--font-outlier); }
 .step__meta span { padding: var(--space-2xs) var(--space-xs); border-radius: 3px; background: var(--color-sheet-accent); color: var(--color-accent-ink); }
 .step__company { color: var(--color-sheet-ink) !important; font-weight: 500; }
+.step__points { display: grid; gap: var(--space-2xs); margin: var(--space-2xs) 0; color: var(--color-sheet-ink-2); font-size: var(--text-sm); line-height: 1.45; }
+.step__points li { position: relative; padding-left: var(--space-md); }
+.step__points li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; border-radius: 1px; background: var(--color-sheet-accent); }
 .step__stack { color: var(--color-sheet-muted) !important; font: 400 var(--text-xs)/1.6 var(--font-outlier); }
 .step__bar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2xs); margin-top: var(--space-sm); }
 .step__bar span { height: 3px; border-radius: 2px; background: var(--color-sheet-rule); }

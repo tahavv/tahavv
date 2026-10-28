@@ -28,7 +28,7 @@ onBeforeUnmount(() => {
 <template>
     <a class="cursor-cta" :class="{ 'is-visible': visible }" href="/#contact" tabindex="-1" aria-hidden="true">
         <span class="cursor-cta__float">
-            <span v-if="visible" class="cursor-cta__bubble">Shall we build something?</span>
+            <span v-if="visible" class="cursor-cta__bubble">Hiring? Let’s talk.</span>
             <span class="cursor-cta__tool">
                 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2.5 2.5l13.5 6.8-5.8 1.6-2.7 5.6z" /></svg>
             </span>

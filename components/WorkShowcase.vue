@@ -69,7 +69,7 @@ onBeforeUnmount(() => chipContext?.revert())
         <div class="container work__intro">
             <ChapterLabel no="02" name="Work" />
             <h2 id="work-title" data-chars>Five platforms, in production</h2>
-            <p data-reveal>Built and run at Everbloo-Adenis and Elite Business. Scroll through them, or open one for the problem, the work and what changed.</p>
+            <p data-reveal>Real systems I built and run at Everbloo-Adenis and Elite Business, used by operations teams and by clients across international markets. Open any one for the problem, my part and the result.</p>
         </div>
 
         <div ref="root" class="work__stage" data-scene="valley">
@@ -113,7 +113,7 @@ onBeforeUnmount(() => chipContext?.revert())
         </div>
 
         <div class="container work__repos">
-            <h3 data-reveal>Public repositories</h3>
+            <h3 data-reveal>Side projects on GitHub</h3>
             <ul class="repos" data-rise>
                 <li v-for="repo in repositories" :key="repo.slug">
                     <a class="repo" :href="repo.repo" rel="noreferrer" target="_blank" data-tilt>

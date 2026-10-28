@@ -21,7 +21,7 @@ usePinnedTimeline(root, layers.length * 0.8, (timeline, element) => {
             <div class="stack__head">
                 <ChapterLabel no="05" name="Skills" />
                 <h2 id="skills-title" data-chars>One engineer, every layer</h2>
-                <p>From the cloud account to the button on the screen, the whole stack on one desk.</p>
+                <p>The tools I use in production, layer by layer: from cloud infrastructure and CI/CD to APIs, front ends and data.</p>
             </div>
             <div class="stack__panel">
                 <div class="stack__art" aria-hidden="true">

@@ -3,8 +3,8 @@ const { paused } = useMotion()
 
 const lines = [
     '$ whoami',
-    'taha@portfolio:~$ building dependable software',
-    'taha@portfolio:~$ cloud · platform · product'
+    'taha@portfolio:~$ software engineer, full-stack and cloud',
+    'taha@portfolio:~$ status: open to new opportunities'
 ]
 
 const displayed = shallowRef('')

@@ -35,7 +35,7 @@ onBeforeUnmount(() => context?.revert())
                 <span class="detail__tag" aria-hidden="true">Elite Business</span>
                 <h2 id="numbers-title" class="detail__statement" data-chars>Monthly to weekly releases.</h2>
             </div>
-            <p class="detail__source">Release automation on Jenkins, Docker and Kubernetes. The rest, from my CV:</p>
+            <p class="detail__source">I automated the release process end to end with Jenkins, Docker and Kubernetes. More of what I delivered:</p>
             <dl class="figures" data-rise>
                 <div v-for="score in scores" :key="score.unit" class="figure-cell">
                     <dd class="figure-cell__value">

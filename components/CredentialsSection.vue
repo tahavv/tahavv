@@ -7,7 +7,7 @@ import { certifications, education } from '~/content/profile'
         <div class="container">
             <div class="credentials__head">
                 <ChapterLabel no="06" name="Education" />
-                <h2 id="credentials-title" data-chars>Degrees and certifications</h2>
+                <h2 id="credentials-title" data-chars>Education and certifications</h2>
             </div>
             <ul class="credentials__row" data-rise>
                 <li class="credentials__photo">

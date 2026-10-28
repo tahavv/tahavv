@@ -27,7 +27,7 @@ usePinnedTimeline(root, roles.length, (timeline, element) => {
             <div class="process__intro">
                 <ChapterLabel no="03" name="Experience" />
                 <h2 id="experience-title" data-chars>Four roles, two companies</h2>
-                <p>From an internship in 2022 to the platform work I run now.</p>
+                <p>3+ years of production work, from an internship in 2022 to owning delivery pipelines today.</p>
             </div>
 
             <ol class="process__cards">
@@ -35,7 +35,9 @@ usePinnedTimeline(root, roles.length, (timeline, element) => {
                     <p class="step__meta"><span>{{ String(index + 1).padStart(2, '0') }}</span><time :datetime="role.start">{{ role.period }}</time></p>
                     <h3>{{ role.role }}</h3>
                     <p class="step__company">{{ role.company }}, {{ role.place }}</p>
-                    <p>{{ role.summary }}</p>
+                    <ul class="step__points">
+                        <li v-for="point in role.highlights" :key="point">{{ point }}</li>
+                    </ul>
                     <p class="step__stack">{{ role.stack.join(', ') }}</p>
                     <span class="step__bar" aria-hidden="true"><span v-for="n in roles.length" :key="n" :class="{ 'is-on': n - 1 <= index }"></span></span>
                 </li>

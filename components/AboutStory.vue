@@ -6,7 +6,7 @@ import { pillars } from '~/content/profile'
 // The beats crossfade on their data-in/data-out windows; the timeline only scrubs the
 // words into focus and draws the highlight, inside the first two windows.
 const root = ref<HTMLElement | null>(null)
-const words = 'Software, and the platform it runs on.'.split(' ')
+const words = 'From the first line of code to production.'.split(' ')
 
 usePinnedTimeline(root, 3.4, (timeline, element) => {
     const select = gsap.utils.selector(element)
@@ -25,9 +25,9 @@ usePinnedTimeline(root, 3.4, (timeline, element) => {
                 <h2 id="about-title" class="about__title">
                     <template v-for="(word, w) in words" :key="w"><span class="about__word">{{ word }}</span>{{ ' ' }}</template>
                 </h2>
-                <p class="about__sub">I write the code, then build the platform that ships it: clusters, pipelines, dashboards and the services on top.</p>
+                <p class="about__sub">A full-stack engineer with a DevOps mindset. I build the features, then the pipelines, clusters and dashboards that get them to users and keep them healthy. I own what I ship.</p>
             </div>
-            <p class="about__closing" data-in="0.4" data-out="0.64">Releases went from monthly to <span class="about__mark">weekly</span>.</p>
+            <p class="about__closing" data-in="0.4" data-out="0.64">I took releases from monthly to <span class="about__mark">weekly</span>.</p>
             <ul class="about__cards" data-in="0.68">
                 <li v-for="(pillar, index) in pillars" :key="pillar.title" :style="{ '--i': index }">
                     <a class="pillar" href="#skills" data-tilt>

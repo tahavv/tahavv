@@ -1,7 +1,7 @@
 export const profile = {
     name: 'Taha Ayari',
     role: 'Software Engineer, Full-Stack and Cloud',
-    headline: 'Taha Ayari. I build software and the platform under it.',
+    headline: 'Taha Ayari. Full-stack and cloud engineer: I build the product and the platform that ships it.',
     summary: 'Software engineer with 3+ years designing and shipping full-stack and cloud-native systems: microservices, CI/CD pipelines, Kubernetes and observability, in travel tech and telecom. Red Hat Certified (RHCSA).',
     location: 'Tunis, Tunisia',
     email: 'taha.ayari@iteam-univ.tn',
@@ -31,13 +31,14 @@ export interface Project {
 export const projects: Project[] = [
     {
         slug: 'gitops-observability-platform',
-        name: 'GitOps delivery of a business observability and incident investigation platform',
+        name: 'GitOps observability and incident investigation platform',
         where: 'Everbloo-Adenis',
         years: '2025 to now',
         lead: true,
-        summary: 'Provisioned, configured and delivered through Git: metrics, logs and traces in one place for investigating incidents.',
+        summary: 'Metrics, logs and traces in one place, so an incident can be traced from a business symptom to the service behind it. Provisioned with Terraform and Ansible, delivered by Argo CD from Git.',
         stack: ['Kubernetes', 'Terraform', 'Ansible', 'Argo CD', 'Prometheus', 'Quickwit', 'Grafana', 'Jaeger', 'GCP'],
         context: 'A booking platform with many providers needs one place to see how the business is doing and to trace an incident back to its cause.',
+        outcome: ['One place to investigate incidents, from business symptom to service', 'Infrastructure and dashboards reproducible from Git'],
         work: [
             'Infrastructure written in Terraform and configured with Ansible',
             'Every service and dashboard delivered to Kubernetes by Argo CD from Git',
@@ -50,7 +51,7 @@ export const projects: Project[] = [
         name: 'Multi-provider booking platform',
         where: 'Everbloo-Adenis',
         years: '2025 to now',
-        summary: 'Flight, rail and hotel booking across providers, through NDC, GDS and bedbank integrations.',
+        summary: 'Features for a global flight, rail and hotel booking platform serving clients across international markets, with NDC, GDS and bedbank integrations and its delivery pipelines to GCP.',
         stack: ['TypeScript', 'Next.js', 'Vue.js', 'Nuxt.js', 'Express.js', 'SQL', 'PostgreSQL', 'NDC', 'GDS', 'Jenkins', 'Argo CD'],
         context: 'A global booking platform serving clients across international markets, with each provider speaking its own protocol.',
         work: [
@@ -59,14 +60,14 @@ export const projects: Project[] = [
             'Microservice delivery pipelines to GCP',
             'Jenkins and Argo CD in place of ad hoc deployments'
         ],
-        outcome: ['Fewer differences between environments', 'A repeatable promotion workflow']
+        outcome: ['Repeatable releases through a Jenkins and Argo CD promotion workflow', 'Fewer differences between environments on GCP']
     },
     {
         slug: 'telecom-fraud-detection',
-        name: 'Telecom fraud detection platform',
+        name: 'Real-time telecom fraud management system',
         where: 'Elite Business',
         years: '2023 to now',
-        summary: 'Real-time monitoring, detection, blocking and blacklisting of fraudulent telecom traffic.',
+        summary: 'I architected a system that monitors, detects, blocks and blacklists fraudulent telecom traffic in real time: Angular, Spring Boot and Dockerized Python services.',
         stack: ['Angular', 'Spring Boot', 'Python', 'Redis', 'Prometheus', 'Grafana', 'Jenkins', 'Docker', 'Kubernetes'],
         context: 'Fraud on a telecom network was caught by hand, late, by an operations team reviewing records.',
         work: [
@@ -75,14 +76,14 @@ export const projects: Project[] = [
             'Prometheus and Grafana for platform health',
             'Jenkins CI/CD to Docker and Kubernetes'
         ],
-        outcome: ['Faster fraud detection', 'Less manual review for the operations team']
+        outcome: ['Fraud detected much faster', 'Far less manual review for the operations team']
     },
     {
         slug: 'casetools-incident-platform',
-        name: 'CaseTools, incident management',
+        name: 'CaseTools, incident management platform',
         where: 'Elite Business',
         years: '2023 to now',
-        summary: 'Structured incident workflows with Grafana and Prometheus dashboards and Kafka and WebSocket alerting.',
+        summary: 'An incident platform used daily by 10 to 20 engineers: structured workflows from report to resolution, Grafana and Prometheus dashboards, Kafka and WebSocket alerts.',
         stack: ['Angular', 'Spring Boot', 'Kafka', 'WebSockets', 'Grafana', 'Prometheus', 'PostgreSQL'],
         context: 'Incidents were tracked by hand, with no shared view of what was open or who had it.',
         work: [
@@ -90,14 +91,14 @@ export const projects: Project[] = [
             'Grafana and Prometheus dashboards for every incident',
             'Kafka and WebSocket alerting to the engineers on duty'
         ],
-        outcome: ['Adopted by 10 to 20 engineers', 'Replaced a fully manual process']
+        outcome: ['Adopted by 10 to 20 engineers', 'Replaced a fully manual incident process']
     },
     {
         slug: 'telecom-cdr-etl-dashboard',
-        name: 'ETL and dashboards for telecom CDR',
+        name: 'Telecom CDR data pipeline and dashboards',
         where: 'Elite Business',
         years: '2022 to now',
-        summary: 'A pipeline that loads high-volume call detail records into PostgreSQL, and the dashboards built on it.',
+        summary: 'An ETL pipeline that loads high-volume call detail records into PostgreSQL, the backbone of the operator’s analytics dashboards.',
         stack: ['Spark Streaming', 'Apache Hadoop', 'PostgreSQL', 'Angular', 'Spring Boot', 'React', 'Grafana', 'Jenkins'],
         context: 'Operational analytics for a telecom operator depend on call detail records arriving complete and on time.',
         work: [
@@ -157,7 +158,11 @@ export const experience = [
         role: 'Software Engineer (Freelance)',
         company: 'Everbloo-Adenis',
         place: 'Remote',
-        summary: 'I build features for a global multi-provider booking platform (flight, rail, hotel) with NDC and GDS integrations, own its microservice deployment pipelines to GCP, and replaced ad hoc deployments with a Jenkins and Argo CD promotion workflow.',
+        highlights: [
+            'Ship features on a global flight, rail and hotel booking platform with NDC and GDS integrations',
+            'Own the microservice deployment pipelines to GCP',
+            'Replaced ad hoc deployments with a Jenkins and Argo CD promotion workflow'
+        ],
         stack: ['TypeScript', 'Express.js', 'Nuxt.js', 'Next.js', 'Vue.js', 'PostgreSQL', 'NDC and GDS', 'Docker', 'Kubernetes', 'Jenkins', 'Argo CD', 'Terraform', 'Ansible', 'Prometheus', 'Quickwit', 'Grafana', 'GCP']
     },
     {
@@ -166,7 +171,12 @@ export const experience = [
         role: 'Software Engineer',
         company: 'Elite Business',
         place: 'Tunis',
-        summary: 'I architected a real-time fraud management system, built CaseTools, the incident platform 10 to 20 engineers work in, automated releases from monthly manual deployments to weekly ones, and designed the CDR ETL pipeline behind the analytics dashboards.',
+        highlights: [
+            'Architected a real-time fraud management system (Angular, Spring Boot, Python)',
+            'Built CaseTools, the incident platform used by 10 to 20 engineers',
+            'Took releases from monthly manual deployments to weekly automated ones',
+            'Designed the CDR ETL pipeline behind the analytics dashboards'
+        ],
         stack: ['Angular', 'Spring Boot', 'Python', 'PostgreSQL', 'Kafka', 'Redis', 'Docker', 'Kubernetes', 'Jenkins', 'Grafana', 'Prometheus', 'Spark Streaming']
     },
     {
@@ -175,7 +185,10 @@ export const experience = [
         role: 'Full-Stack Developer Intern',
         company: 'Elite Business',
         place: 'Tunis',
-        summary: 'I built React components for a telecom reporting dashboard and standardised the team’s Git workflow, which cut integration conflicts.',
+        highlights: [
+            'Built React components for a telecom reporting dashboard',
+            'Standardised the team’s Git workflow, cutting integration conflicts'
+        ],
         stack: ['React', 'Spring Boot', 'Git', 'Docker', 'MySQL']
     },
     {
@@ -184,7 +197,10 @@ export const experience = [
         role: 'Web Developer Intern',
         company: 'Elite Business',
         place: 'Tunis',
-        summary: 'I worked on the redesign of a telecom CDR ETL platform with Spark Streaming and Apache Hadoop, for more reliable pipelines and a more responsive front end.',
+        highlights: [
+            'Worked on the CDR ETL platform redesign with Spark Streaming and Hadoop',
+            'Made the data pipelines more reliable and the front end more responsive'
+        ],
         stack: ['Angular', 'Spring Boot', 'Spark Streaming', 'Apache Hadoop', 'PostgreSQL', 'Docker']
     }
 ]
@@ -205,7 +221,7 @@ export const skills = [
 export const scores = [
     { figure: '3+', unit: 'years', label: 'shipping full-stack and cloud systems' },
     { figure: '10-20', unit: 'engineers', label: 'on CaseTools, the incident platform I built' },
-    { figure: '5', unit: 'platforms', label: 'in production at Everbloo and Elite Business' },
+    { figure: '5', unit: 'platforms', label: 'in production at Everbloo-Adenis and Elite Business' },
     { figure: '2', unit: 'certs', label: 'Red Hat RHCSA and Cisco NDG Linux Essentials' }
 ]
 export const education = [
@@ -220,9 +236,9 @@ export const certifications = [
 
 // The three things I do, as the about chapter's cards.
 export const pillars = [
-    { title: 'Cloud and DevOps', line: 'Kubernetes clusters provisioned with Terraform and Ansible, delivered by Argo CD and Jenkins, on AWS and GCP.', tags: ['Kubernetes', 'Terraform', 'Argo CD', 'GCP'], icon: 'Kubernetes' },
-    { title: 'Full-stack engineering', line: 'Angular, Next.js, Vue and Nuxt front ends over Spring Boot, Express and Python services.', tags: ['Angular', 'Spring Boot', 'Next.js', 'TypeScript'], icon: 'Angular' },
-    { title: 'Observability', line: 'Metrics, logs and traces in Prometheus, Quickwit, Jaeger and Grafana, tied to what the business sees.', tags: ['Prometheus', 'Grafana', 'Quickwit', 'Jaeger'], icon: 'Grafana' }
+    { title: 'Full-stack development', line: 'Angular and React front ends over Spring Boot, Express and Python services: REST APIs and microservices built for production.', tags: ['Angular', 'Spring Boot', 'TypeScript', 'Nuxt.js'], icon: 'Angular' },
+    { title: 'Cloud and DevOps', line: 'Docker and Kubernetes on GCP, CI/CD with Jenkins and Argo CD: from monthly manual deployments to weekly automated releases.', tags: ['Kubernetes', 'Docker', 'Argo CD', 'GCP'], icon: 'Kubernetes' },
+    { title: 'Observability and data', line: 'Grafana and Prometheus dashboards, Kafka and WebSocket alerting, ETL pipelines into PostgreSQL with Spark Streaming.', tags: ['Grafana', 'Prometheus', 'Kafka', 'PostgreSQL'], icon: 'Grafana' }
 ]
 
 // The skills chapter, as layers of one stack, top to bottom.
