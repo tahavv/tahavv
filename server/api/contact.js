@@ -46,32 +46,32 @@ export default defineEventHandler(async (event) => {
     }
 
     const config = useRuntimeConfig(event)
-    if (!config.senderApiToken || !config.contactFromEmail || !config.contactToEmail) {
+    if (!config.resendApiKey || !config.contactFromEmail || !config.contactToEmail) {
         throw createError({ statusCode: 503, statusMessage: 'The contact service is not configured yet. Please email me directly.' })
     }
 
     const text = `New portfolio message\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`
     const html = `<h1>New portfolio message</h1><p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Subject:</strong> ${escapeHtml(subject)}</p><p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>`
+    // Resend wants "Name <address>"; the name is stripped of characters that would break that form.
+    const fromName = (config.contactFromName || 'Portfolio contact form').replace(/[<>"\r\n]/g, '')
 
     try {
-        await $fetch('https://api.sender.net/v2/message/send', {
+        await $fetch('https://api.resend.com/emails', {
             method: 'POST',
-            headers: {
-                Authorization: `Bearer ${config.senderApiToken}`,
-                Accept: 'application/json'
-            },
+            headers: { Authorization: `Bearer ${config.resendApiKey}` },
             body: {
-                from: { email: config.contactFromEmail, name: config.contactFromName || 'Portfolio contact form' },
-                to: { email: config.contactToEmail },
+                from: `${fromName} <${config.contactFromEmail}>`,
+                to: [config.contactToEmail],
+                reply_to: email,
                 subject: `Portfolio: ${subject}`,
                 text,
-                html,
-                headers: { 'Reply-To': `${name} <${email}>` }
+                html
             },
             timeout: 10_000
         })
     } catch (error) {
-        console.error('Sender contact failure', error?.status || error?.name)
+        // Resend explains a refusal in the body (wrong key, unverified sender domain, sandbox recipient).
+        console.error('Resend contact failure', error?.status || error?.name, error?.data?.name, error?.data?.message)
         throw createError({ statusCode: 502, statusMessage: 'The message did not go through. Try again in a minute, or email me directly.' })
     }
 

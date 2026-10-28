@@ -48,6 +48,6 @@ npm run dev      # http://localhost:3000
 npm run build    # production build (Vercel runs this)
 ```
 
-The contact form sends mail through the [Sender](https://www.sender.net) transactional API. Copy `.env.example` to `.env` for local work and set the same variables in Vercel.
+The contact form sends mail through the [Resend](https://resend.com) API. Copy `.env.example` to `.env.local` for local work and set the same variables in Vercel.
 
 </details>
