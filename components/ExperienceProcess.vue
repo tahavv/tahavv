@@ -1,31 +1,32 @@
 <script setup lang="ts">
+import { gsap } from 'gsap'
 import { experience } from '~/content/profile'
 
-// The experience chapter, pinned: four roles as nodes on one line that draws itself,
-// oldest first, with a card that follows the role the line has reached.
+// The experience chapter is ordered from the latest role back through earlier work.
 const root = ref<HTMLElement | null>(null)
-const roles = [...experience].reverse()
+const roles = experience
 const active = shallowRef(0)
 const nodes = [
     { x: 80, y: 250 }, { x: 330, y: 150 }, { x: 590, y: 230 }, { x: 860, y: 110 }
 ]
 const path = `M ${nodes[0].x} ${nodes[0].y} C 200 250, 210 150, ${nodes[1].x} ${nodes[1].y} S 470 230, ${nodes[2].x} ${nodes[2].y} S 740 110, ${nodes[3].x} ${nodes[3].y}`
 
-usePinnedTimeline(root, roles.length, (timeline) => {
-    const line = document.querySelector<SVGPathElement>('.process__line')
+usePinnedTimeline(root, roles.length, (timeline, element) => {
+    const line = element.querySelector<SVGPathElement>('.process__line')
     const length = line?.getTotalLength() ?? 1200
+    const select = gsap.utils.selector(element)
     timeline
-        .fromTo('.process__line', { strokeDasharray: length, strokeDashoffset: length }, { strokeDashoffset: 0, duration: 1 })
-        .from('.process__node', { scale: 0, opacity: 0, transformOrigin: '50% 50%', stagger: 0.3, duration: 0.15 }, 0)
+        .fromTo(select('.process__line'), { strokeDasharray: length, strokeDashoffset: length }, { strokeDashoffset: 0, duration: 1 })
+        .from(select('.process__node'), { scale: 0, opacity: 0, transformOrigin: '50% 50%', stagger: 0.3, duration: 0.15 }, 0)
 }, (progress) => { active.value = Math.min(roles.length - 1, Math.floor(progress * roles.length)) })
 </script>
 
 <template>
-    <section id="experience" ref="root" class="process" aria-labelledby="experience-title" data-scene="process" data-chapter="Experience">
+    <section id="experience" ref="root" class="process" aria-labelledby="experience-title" data-scene="plan" data-chapter="Experience">
         <div class="container process__grid">
             <div class="process__intro">
                 <ChapterLabel no="03" name="Experience" />
-                <h2 id="experience-title">Four roles, two companies</h2>
+                <h2 id="experience-title" data-chars>Four roles, two companies</h2>
                 <p>From an internship in 2022 to the platform work I run now.</p>
             </div>
 

@@ -29,15 +29,15 @@ async function submit() {
 </script>
 
 <template>
-    <section id="contact" class="section contact" aria-labelledby="contact-title" data-scene="cluster" data-chapter="Contact">
+    <section id="contact" class="section contact" aria-labelledby="contact-title" data-scene="horizon" data-chapter="Contact">
         <div class="container contact__grid">
             <div class="contact__text">
                 <ChapterLabel no="07" name="Contact" />
-                <h2 id="contact-title" data-reveal>Your next platform, with Taha.</h2>
-                <p class="contact__lead" data-reveal>Open to software engineering roles in cloud and platform, and to freelance work. Tell me what you are building.</p>
+                <h2 id="contact-title" data-chars>Your next platform, with Taha.</h2>
+                <p class="contact__lead" data-reveal>Open to software engineering opportunities in cloud, platform and product development. Tell me what you are building.</p>
                 <dl class="contact__facts" data-reveal>
                     <div><dt>Email</dt><dd><a :href="`mailto:${profile.email}`">{{ profile.email }}</a></dd></div>
-                    <div><dt>LinkedIn</dt><dd><a :href="profile.linkedin" rel="me noreferrer" target="_blank">in/taha-ayari</a></dd></div>
+                    <div><dt>LinkedIn</dt><dd><a :href="profile.linkedin" rel="me noreferrer" target="_blank">in/taha-ayari-700b823b9</a></dd></div>
                     <div><dt>GitHub</dt><dd><a :href="profile.github" rel="me noreferrer" target="_blank">tahavv</a></dd></div>
                     <div><dt>Based in</dt><dd>{{ profile.location }}</dd></div>
                 </dl>

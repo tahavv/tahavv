@@ -23,10 +23,12 @@ a { color: inherit; text-decoration-color: color-mix(in oklab, var(--color-accen
 a:hover { text-decoration-color: var(--color-accent-2); }
 ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .site { position: relative; }
-.site > main, .site > .footer, .site > .nav { position: relative; z-index: var(--z-base); }
+.site > main, .site > .footer { position: relative; z-index: var(--z-base); }
 
 /* The world behind the night chapters */
-.backdrop { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(120% 80% at 50% 120%, var(--color-paper-2), transparent 60%), var(--color-paper); }
+.backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: radial-gradient(120% 80% at 50% 120%, var(--color-paper-2), transparent 60%), var(--color-paper); }
+.backdrop::after { content: ""; position: absolute; inset: -20%; background: radial-gradient(52% 65% at 82% 30%, color-mix(in oklab, var(--color-accent) 32%, transparent), transparent 67%); opacity: 0.7; transform: translate3d(0, 0, 0); animation: backdrop-field 13s var(--ease-in-out) infinite alternate; }
+@keyframes backdrop-field { from { transform: translate3d(-2%, 1%, 0) scale(0.98); opacity: 0.54; } to { transform: translate3d(2%, -1%, 0) scale(1.05); opacity: 0.88; } }
 .world { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 1.6s var(--ease-out); }
 .world.is-ready { opacity: 1; }
 
@@ -80,27 +82,41 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .card-white { border: 1px solid var(--color-sheet-rule); border-radius: var(--radius-card); background: var(--color-card); box-shadow: var(--shadow-card); color: var(--color-sheet-ink); }
 .card-white p { color: var(--color-sheet-ink-2); }
 
-/* Nav */
-.nav { position: sticky; top: 0; z-index: var(--z-sticky-nav); border-bottom: 1px solid var(--color-rule); background: color-mix(in oklab, var(--color-paper) 80%, transparent); backdrop-filter: blur(16px); }
-.nav__bar { display: flex; align-items: center; gap: var(--space-xl); min-height: 60px; }
-.wordmark { font: 500 var(--text-sm)/1 var(--font-body); letter-spacing: 0.02em; text-decoration: none; white-space: nowrap; }
+/* Nav: fixed and see-through, after the reference; a soft fade keeps it legible over the world */
+.nav { position: fixed; inset: 0 0 auto; z-index: var(--z-sticky-nav); color: var(--color-ink); transition: color 0.5s; }
+.nav::before { content: ""; position: absolute; inset: 0 0 -24px; z-index: -1; background: linear-gradient(color-mix(in oklab, var(--color-paper) 85%, transparent) 40%, transparent); transition: opacity 0.5s; pointer-events: none; }
+.nav::after { content: ""; position: absolute; inset: 0 0 -24px; z-index: -1; background: linear-gradient(color-mix(in oklab, var(--color-sheet) 90%, transparent) 40%, transparent); opacity: 0; transition: opacity 0.5s; pointer-events: none; }
+.is-light .nav { color: var(--color-sheet-ink); }
+.is-light .nav::before { opacity: 0; }
+.is-light .nav::after { opacity: 1; }
+.nav__bar { display: flex; align-items: center; gap: 28px; height: 64px; padding-inline: var(--gutter); }
+.wordmark { color: inherit; font: 700 1.0625rem/1 var(--font-display); letter-spacing: 0.01em; text-decoration: none; white-space: nowrap; }
 .wordmark:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
-.nav__links { display: flex; gap: var(--space-lg); margin-left: auto; }
-.nav__links a { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; color: var(--color-ink-2); font: 500 var(--text-xs)/1 var(--font-body); text-decoration: none; transition: color var(--dur-short) var(--ease-out); }
-.nav__links a span { padding: var(--space-3xs) var(--space-2xs); border: 1px solid var(--color-rule-2); border-radius: 3px; color: var(--color-muted); font: 500 0.625rem/1 var(--font-outlier); }
-.nav__links a:hover { color: var(--color-ink); }
+.nav__links { display: flex; gap: 20px; margin-left: auto; }
+.nav__links a { display: inline-flex; align-items: center; gap: 7px; padding-block: 6px; color: inherit; font: 400 0.875rem/1 var(--font-body); text-decoration: none; }
+.nav__plus { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 2px; box-shadow: inset 0 0 0 1px var(--color-rule-2); transition: background-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out), rotate 0.5s var(--ease-out); }
+.nav__plus svg { fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; }
+.nav__links a:hover .nav__plus { background: var(--color-accent); box-shadow: none; color: var(--color-accent-ink); rotate: 90deg; }
 .nav__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .nav__tools { display: flex; align-items: center; gap: var(--space-xs); }
+.nav__tools .text-button { min-height: 34px; color: inherit; opacity: 0.55; }
+.nav__tools .text-button:hover { opacity: 1; background: transparent; }
+.nav__cv { display: inline-grid; place-items: center; height: 34px; padding: 0 var(--space-sm); border-radius: 2px; box-shadow: inset 0 0 0 1px var(--color-rule-2); color: inherit; font: 500 0.8125rem/1 var(--font-body); text-decoration: none; transition: box-shadow var(--dur-short) var(--ease-out); }
+.nav__cv:hover { box-shadow: inset 0 0 0 1px currentColor; }
+.nav__cv:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.btn--sm { min-height: 34px; padding: 0 12px; border-radius: 2px; font-size: 0.8125rem; }
+.btn--sm::after { content: none; }
+.is-light .nav__plus, .is-light .nav__cv { box-shadow: inset 0 0 0 1px var(--color-sheet-muted); }
 
 /* Shared rhythm */
 .section { position: relative; padding-block: var(--section-gap) 0; }
 
 /* Hero */
-.hero { position: relative; display: flex; align-items: flex-end; min-height: calc(100svh - 61px); padding-bottom: var(--space-3xl); }
+.hero { position: relative; display: flex; align-items: flex-end; min-height: 100svh; padding-bottom: var(--space-3xl); }
 .hero__inner { display: grid; gap: var(--space-lg); width: 100%; }
 .hero__tag { color: var(--color-ink-2); font: 500 var(--text-xs)/1 var(--font-outlier); }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); align-items: end; }
-.hero__title .line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.hero__title .line { display: block; padding-bottom: 0.06em; }
 .hero__title .line > span { display: inline-block; }
 .hero__aside { display: grid; gap: var(--space-lg); justify-self: end; max-width: 26rem; }
 .hero__lead { font-size: var(--text-md); }
@@ -141,10 +157,17 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 
 /* The light chapters: a pale sheet with a drawn floor */
 .sheet { --color-focus: var(--color-sheet-accent); position: relative; padding-top: var(--section-gap); background: var(--color-sheet); color: var(--color-sheet-ink); }
+.has-world .sheet { background: transparent; }
+.has-world .sheet::before, .has-world .stage-floor, .has-world .sheet__floor { display: none; }
 .sheet::before { content: ""; position: absolute; inset: calc(-1 * var(--space-4xl)) 0 auto; height: var(--space-4xl); background: linear-gradient(transparent, var(--color-sheet)); pointer-events: none; }
 .sheet h2, .sheet h3 { color: var(--color-sheet-ink); }
 .sheet p { color: var(--color-sheet-ink-2); }
 .sheet .chapter-label { color: var(--color-sheet-ink-2); }
+.has-world .sheet :is(h2, h3, p, .chapter-label, .work__count b) { transition: color 0.6s var(--ease-out); }
+/* While the world is still at night over a light chapter, its own type stays light (cards keep theirs). */
+.has-world:not(.is-light) .sheet :is(h2, h3, .work__count b):not(.repo *, .card-white *) { color: var(--color-ink); }
+.has-world:not(.is-light) .sheet :is(p, .chapter-label):not(.repo *, .card-white *) { color: var(--color-ink-2); }
+.has-world:not(.is-light) .sheet :is(.work__meta, .work__stack, .work__count) { color: var(--color-muted); }
 .sheet__floor, .stage-floor { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .sheet__floor::before, .stage-floor::before { content: ""; position: absolute; left: -50%; right: -50%; bottom: -10%; height: 90%; background-image: linear-gradient(var(--color-sheet-rule) 1px, transparent 1px), linear-gradient(90deg, var(--color-sheet-rule) 1px, transparent 1px); background-size: 140px 140px; transform: perspective(900px) rotateX(64deg); transform-origin: 50% 100%; -webkit-mask-image: linear-gradient(transparent, var(--color-sheet-ink) 40%); mask-image: linear-gradient(transparent, var(--color-sheet-ink) 40%); }
 
@@ -161,7 +184,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .work__index { padding: var(--space-2xs) var(--space-xs); border-radius: 3px; background: var(--color-sheet-accent); color: var(--color-accent-ink); }
 .work__stack { color: var(--color-sheet-muted); font: 400 var(--text-xs)/1.6 var(--font-outlier); }
 .work__text .btn { justify-self: start; }
-.work__screens { display: none; perspective: 1600px; }
+.work__screens { display: none; perspective: 1600px; overflow: visible; }
 .work__count { position: absolute; right: var(--gutter); bottom: var(--space-xl); color: var(--color-sheet-muted); font: 500 var(--text-xs)/1 var(--font-outlier); }
 .work__count b { color: var(--color-sheet-ink); font-weight: 500; }
 .work__stage.is-pinned { height: 100svh; padding-block: 0; display: grid; align-items: center; }
@@ -169,7 +192,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .work__stage.is-pinned .work__text { grid-area: 1 / 1; }
 .work__stage.is-pinned .work__screens { display: grid; }
 .work__stage:not(.is-pinned) .work__count { display: none; }
-.screen { grid-area: 1 / 1; position: relative; display: flex; flex-direction: column; gap: var(--space-md); aspect-ratio: 16 / 10; padding: var(--space-xl); border-radius: 14px; color: var(--color-accent-ink); text-decoration: none; box-shadow: var(--shadow-screen), inset 0 1px 0 color-mix(in oklab, var(--color-accent-ink) 35%, transparent); transform-style: preserve-3d; }
+.screen { grid-area: 1 / 1; position: relative; display: flex; flex-direction: column; gap: var(--space-md); aspect-ratio: 16 / 10; padding: var(--space-xl); border-radius: 14px; color: var(--color-accent-ink); text-decoration: none; box-shadow: var(--shadow-screen), inset 0 1px 0 color-mix(in oklab, var(--color-accent-ink) 35%, transparent); transform-style: preserve-3d; will-change: transform, opacity; }
 .screen--1 { background: linear-gradient(135deg, var(--screen-1a), var(--screen-1b)); }
 .screen--2 { background: linear-gradient(135deg, var(--screen-2a), var(--screen-2b)); }
 .screen--3 { background: linear-gradient(135deg, var(--screen-3a), var(--screen-3b)); }
@@ -220,8 +243,8 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .process__node .process__node-role { fill: var(--color-muted); font-size: 12px; }
 .process.is-pinned { height: 100svh; padding: 0; display: grid; align-items: center; }
 .process.is-pinned .process__cards { display: grid; }
-.process.is-pinned .step { grid-area: 1 / 1; opacity: 0; transform: translateY(24px) scale(0.97); transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out); pointer-events: none; }
-.process.is-pinned .step.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.process.is-pinned .step { grid-area: 1 / 1; opacity: 0; transform: translateY(36px); transition: opacity 1.1s var(--ease-out), transform 1.4s var(--ease-out); pointer-events: none; }
+.process.is-pinned .step.is-active { opacity: 1; transform: none; pointer-events: auto; transition-duration: 1.3s, 1.6s; transition-delay: 0.1s; }
 
 /* Numbers: one result in a selection box, then the figures */
 .detail__inner { display: grid; justify-items: center; text-align: center; }
@@ -258,7 +281,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .stack__row-name span { color: var(--color-muted); font: 500 var(--text-xs)/1 var(--font-outlier); }
 .stack__row-items { color: var(--color-muted); font: 400 var(--text-xs)/1.6 var(--font-outlier); }
 .stack.is-pinned { height: 100svh; padding: 0; display: grid; align-items: center; }
-.stack.is-pinned .stack__list li { opacity: 0.45; }
+.stack.is-pinned .stack__list li { opacity: 0.68; }
 .stack.is-pinned .stack__list li.is-active { border-left-color: var(--color-accent-2); opacity: 1; }
 .stack.is-pinned .stack__list li.is-active .stack__row-items { color: var(--color-ink-2); }
 
@@ -304,13 +327,13 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .form__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* Footer: the name set as large as the page allows */
-.footer { padding-top: var(--space-3xl); overflow: hidden; }
+.footer { padding: var(--space-3xl) 0 var(--space-xl); overflow: visible; }
 .footer .container { display: grid; gap: var(--space-xl); }
 .footer__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
 .footer__links { display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-xl); }
 .footer__links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-ink-2); font: 500 var(--text-xs)/1 var(--font-outlier); white-space: nowrap; }
 .footer__legal { color: var(--color-muted); font: 400 var(--text-xs)/1 var(--font-outlier); }
-.footer__mark { margin-bottom: -0.16em; color: var(--color-ink); font: 500 clamp(3.5rem, 15.5vw, 16rem)/0.9 var(--font-display); letter-spacing: -0.06em; white-space: nowrap; overflow-wrap: normal; min-width: 0; }
+.footer__mark { margin: 0; padding-bottom: 0.08em; color: var(--color-ink); font: 500 clamp(3.5rem, 15.5vw, 16rem)/0.9 var(--font-display); letter-spacing: -0.06em; white-space: nowrap; overflow-wrap: normal; min-width: 0; }
 
 /* Case pages */
 .case__head { padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); }
@@ -380,8 +403,85 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
     .detail__box { padding: var(--space-lg); }
 }
 @media (prefers-reduced-motion: reduce) {
+    .backdrop::after { animation: none; }
     .hero__scroll span { animation: none; transform: none; }
     .btn, .text-button, .pillar, .repo, .field input, .field textarea { transition: none; }
     [data-loop-toggle] { display: none; }
 }
 html:not(.js) [data-loop-toggle] { display: none; }
+
+/* Motion after the reference: letters, beats, chips, dots and the corner cursor */
+[data-split] .word { display: inline-block; white-space: nowrap; }
+[data-split] .char { display: inline-block; }
+
+/* Beats in a pinned chapter: on while the pin sits in their window, then lifted away. */
+.is-pinned [data-in] { opacity: 0; pointer-events: none; translate: 0 36px; transition: opacity 1.1s var(--ease-out), translate 1.4s var(--ease-out); }
+.is-pinned [data-in].is-in { opacity: 1; pointer-events: auto; translate: none; transition: opacity 1.3s var(--ease-out) 0.1s, translate 1.6s var(--ease-out) 0.1s; }
+.is-pinned [data-in].is-past { translate: 0 -36px; }
+.about.is-pinned .about__cards[data-in] { translate: none; }
+.about.is-pinned .about__cards > li { opacity: 0; transform: translateY(140px) rotateX(-28deg); transform-origin: 50% 100%; transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out); }
+.about.is-pinned .about__cards.is-in > li { opacity: 1; transform: none; transition: opacity 1.2s cubic-bezier(0.45, 0, 0.25, 1) calc(var(--i) * 120ms + 0.1s), transform 1.4s cubic-bezier(0.45, 0, 0.25, 1) calc(var(--i) * 120ms + 0.1s); }
+
+/* Chapter chips wipe in through a gradient mask. */
+.js .chapter-label { mask-image: linear-gradient(transparent 30%, #000 60%); mask-size: 100% 300%; mask-position: 0 0; transition: mask-position 1.8s var(--ease-out) 0.2s; }
+.js .chapter-label.is-in { mask-position: 0 100%; }
+
+/* Chapter dots */
+.dots { position: fixed; top: 50%; right: var(--space-sm); z-index: var(--z-sticky); display: grid; gap: var(--space-2xs); transform: translateY(-50%); }
+.dots__item { position: relative; display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; }
+.dots__item:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.dots__mark { width: 6px; height: 6px; background: color-mix(in oklab, var(--color-ink) 45%, transparent); transition: height 0.5s var(--ease-out), background-color 0.3s; }
+.dots__item.is-active .dots__mark { height: 18px; background: var(--color-accent-2); }
+.dots__item:hover .dots__mark { background: var(--color-ink); }
+.dots__name { position: absolute; right: 28px; padding: var(--space-2xs) 6px; border-radius: 3px; background: var(--color-ink); color: var(--color-paper); font: 500 0.6875rem/1 var(--font-outlier); white-space: nowrap; opacity: 0; pointer-events: none; transform: translateX(6px); transition: opacity 0.3s, transform 0.4s var(--ease-out); }
+.dots__item:hover .dots__name, .dots__item:focus-visible .dots__name { opacity: 1; transform: none; }
+.dots.is-light .dots__mark { background: color-mix(in oklab, var(--color-sheet-ink) 30%, transparent); }
+.dots.is-light .dots__item.is-active .dots__mark { background: var(--color-sheet-accent); }
+.dots.is-light .dots__name { background: var(--color-sheet-ink); color: var(--color-sheet); }
+
+/* The chip that trails the pointer over the project screens */
+.exhibit-cursor { position: fixed; top: 0; left: 0; z-index: var(--z-tooltip); pointer-events: none; }
+.exhibit-cursor > span { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-xs) var(--space-sm); border-radius: 4px; background: var(--color-accent); color: var(--color-accent-ink); font: 500 var(--text-xs)/1 var(--font-body); white-space: nowrap; opacity: 0; scale: 0.6; transform-origin: 0 0; transition: opacity 0.3s var(--ease-out), scale 0.5s var(--ease-out); }
+.exhibit-cursor > span::after { content: "\2192"; }
+.exhibit-cursor.is-on > span { opacity: 1; scale: 1; }
+.work__stage:not(.is-pinned) .exhibit-cursor { display: none; }
+
+/* The corner cursor */
+.cursor-cta { position: fixed; right: calc(var(--space-2xl) + var(--space-md)); bottom: var(--space-xl); z-index: var(--z-sticky); color: inherit; text-decoration: none; opacity: 0; pointer-events: none; translate: -12px 12px; transition: opacity 0.5s var(--ease-out), translate 0.7s var(--ease-out); }
+.cursor-cta.is-visible { opacity: 1; pointer-events: auto; translate: none; }
+.cursor-cta__float { position: relative; display: grid; justify-items: start; animation: cursor-drift 5s ease-in-out infinite; }
+.cursor-cta__tool { display: block; width: 20px; height: 20px; transform-origin: 3px 3px; }
+.cursor-cta.is-visible .cursor-cta__tool { animation: tool-pick 0.45s var(--ease-out) both; }
+.cursor-cta__tool svg { display: block; width: 100%; height: 100%; fill: var(--color-accent); stroke: var(--color-accent-ink); stroke-width: 1.2; stroke-linejoin: round; }
+.cursor-cta__name { margin: 1px 0 0 14px; padding: var(--space-2xs) 7px; border-radius: 3px; background: var(--color-accent); color: var(--color-accent-ink); font: 500 0.625rem/1 var(--font-outlier); letter-spacing: 0.06em; }
+.cursor-cta__bubble { position: absolute; bottom: calc(100% + 4px); left: 14px; padding: 7px 10px; border-radius: 4px; background: var(--color-ink); color: var(--color-paper); font: 500 var(--text-xs)/1 var(--font-body); white-space: nowrap; transform-origin: 0 100%; box-shadow: var(--shadow-card); animation: cursor-say 4.2s ease-in-out both; }
+@keyframes cursor-drift { 0%, 100% { transform: translate(0); } 30% { transform: translate(7px, -5px); } 65% { transform: translate(2px, -9px); } }
+@keyframes cursor-say { 0%, 8% { opacity: 0; transform: translateY(6px) scale(0.9); } 18%, 84% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes tool-pick { 0% { opacity: 0; transform: scale(0.5) rotate(-20deg); } 100% { opacity: 1; transform: none; } }
+
+@media (max-width: 60rem), (pointer: coarse) {
+    .dots, .cursor-cta { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .js .chapter-label { mask-image: none; }
+    .cursor-cta__float, .cursor-cta__tool, .cursor-cta.is-visible .cursor-cta__tool { animation: none; }
+    .cursor-cta__bubble { opacity: 1; animation: none; }
+    .cursor-cta, .dots__mark, .dots__name { transition: none; }
+}
+
+/* The pixel wave that covers a chapter jump */
+.pixel-jump { position: fixed; inset: 0; z-index: calc(var(--z-tooltip) + 1); width: 100%; height: 100%; }
+.is-light .cursor-cta__bubble { background: var(--color-sheet-ink); color: var(--color-sheet); }
+
+/* Legibility over the 3D world, after the reference: on night chapters, text blocks sit on a soft
+   dark halo and carry a faint shadow, so lines and tiles behind them never wash the type out. */
+.has-world :is(.hero__aside, .process__intro, .detail__inner, .stack__head, .contact__text, .footer__row), .has-world .about:not(.is-pinned) .about__statement { position: relative; }
+.has-world :is(.hero__aside, .about__statement, .process__intro, .detail__inner, .stack__head, .contact__text, .footer__row) { isolation: isolate; }
+.has-world :is(.hero__aside, .about__statement, .process__intro, .detail__inner, .stack__head, .contact__text, .footer__row)::before { content: ""; position: absolute; inset: -40px -96px; z-index: -1; background: radial-gradient(closest-side, color-mix(in oklab, var(--color-paper) 72%, transparent), color-mix(in oklab, var(--color-paper) 45%, transparent) 55%, transparent); opacity: 1; transition: opacity 0.6s var(--ease-out); pointer-events: none; }
+.has-world.is-light :is(.hero__aside, .about__statement, .process__intro, .detail__inner, .stack__head, .contact__text, .footer__row)::before { opacity: 0; }
+.has-world:not(.is-light) main :is(p, dt, dd, h1, h2, .chapter-label, .figure-cell__unit):not(.card-white *, .repo *, .pillar *, .step *, .form *, .credential *, .screen *, .stack__panel *),
+.has-world:not(.is-light) .footer :is(p, a) { text-shadow: 0 1px 14px color-mix(in oklab, var(--color-paper) 65%, transparent); }
+/* Type follows the sky, not the section: while the world is in day, every chapter's own type turns
+   dark, so a chapter scrolled in mid-blend never shows white on pale. Cards keep their own colours. */
+.has-world.is-light :is(main, .footer) { --color-ink: var(--color-sheet-ink); --color-ink-2: var(--color-sheet-ink-2); --color-muted: var(--color-sheet-muted); --color-rule: var(--color-sheet-rule); color: var(--color-ink); }
+.has-world main, .has-world .footer { color: var(--color-ink); transition: color 0.6s var(--ease-out); }

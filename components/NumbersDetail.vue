@@ -26,14 +26,14 @@ onBeforeUnmount(() => context?.revert())
 </script>
 
 <template>
-    <section ref="root" class="section detail" aria-labelledby="numbers-title" data-scene="away" data-chapter="Numbers">
+    <section ref="root" class="section detail" aria-labelledby="numbers-title" data-scene="open" data-chapter="Numbers">
         <div class="container detail__inner">
             <ChapterLabel no="04" name="Numbers" />
             <div class="detail__box">
                 <span class="detail__frame" aria-hidden="true"></span>
                 <span v-for="corner in ['tl', 'tr', 'bl', 'br']" :key="corner" class="detail__handle" :class="`detail__handle--${corner}`" aria-hidden="true"></span>
                 <span class="detail__tag" aria-hidden="true">Elite Business</span>
-                <h2 id="numbers-title" class="detail__statement">Monthly to weekly releases.</h2>
+                <h2 id="numbers-title" class="detail__statement" data-chars>Monthly to weekly releases.</h2>
             </div>
             <p class="detail__source">Release automation on Jenkins, Docker and Kubernetes. The rest, from my CV:</p>
             <dl class="figures" data-rise>

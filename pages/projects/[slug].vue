@@ -59,7 +59,7 @@ useHead({
 
 <template>
     <article class="case" aria-labelledby="case-title">
-        <header class="section case__head" data-scene="process" data-chapter="Case">
+        <header class="section case__head" data-scene="plan" data-chapter="Case">
             <div class="container">
                 <nav class="case__crumbs" aria-label="Breadcrumb">
                     <NuxtLink to="/#work">Work</NuxtLink>
@@ -76,7 +76,7 @@ useHead({
             </div>
         </header>
 
-        <section class="sheet case__body" aria-labelledby="work-title" data-scene="away" data-chapter="The work">
+        <section class="sheet case__body" aria-labelledby="work-title" data-scene="white" data-chapter="The work">
             <div class="container">
                 <h2 id="work-title" class="case__statement" data-reveal>{{ project.context }}</h2>
                 <div class="case__grid" data-rise>
@@ -103,7 +103,7 @@ useHead({
             </div>
         </section>
 
-        <section class="section case__next" aria-labelledby="next-title" data-scene="process" data-chapter="More work">
+        <section class="section case__next" aria-labelledby="next-title" data-scene="field" data-chapter="More work">
             <div class="container">
                 <h2 id="next-title">More work</h2>
                 <ul class="case__others" data-rise>

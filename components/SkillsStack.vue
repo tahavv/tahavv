@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { gsap } from 'gsap'
 import { layers } from '~/content/profile'
 
 // The skills chapter, pinned: the stack as five layers that pull apart, top to bottom,
@@ -6,19 +7,20 @@ import { layers } from '~/content/profile'
 const root = ref<HTMLElement | null>(null)
 const active = shallowRef(0)
 
-usePinnedTimeline(root, layers.length * 0.8, (timeline) => {
+usePinnedTimeline(root, layers.length * 0.8, (timeline, element) => {
+    const select = gsap.utils.selector(element)
     timeline
-        .fromTo('.stack__layer', { '--lift': 0 }, { '--lift': 1, duration: 1, stagger: 0.04 })
-        .fromTo('.stack__panel', { opacity: 0.4, y: 60 }, { opacity: 1, y: 0, duration: 0.3 }, 0)
+        .fromTo(select('.stack__layer'), { '--lift': 0 }, { '--lift': 1, duration: 1, stagger: 0.04 })
+        .fromTo(select('.stack__panel'), { opacity: 0.4, y: 60 }, { opacity: 1, y: 0, duration: 0.3 }, 0)
 }, (progress) => { active.value = Math.min(layers.length - 1, Math.floor(progress * layers.length)) })
 </script>
 
 <template>
-    <section id="skills" ref="root" class="stack" aria-labelledby="skills-title" data-scene="away" data-chapter="Skills">
+    <section id="skills" ref="root" class="stack" aria-labelledby="skills-title" data-scene="layers" data-chapter="Skills">
         <div class="container stack__inner">
             <div class="stack__head">
                 <ChapterLabel no="05" name="Skills" />
-                <h2 id="skills-title">One engineer, every layer</h2>
+                <h2 id="skills-title" data-chars>One engineer, every layer</h2>
                 <p>From the cloud account to the button on the screen, the whole stack on one desk.</p>
             </div>
             <div class="stack__panel">

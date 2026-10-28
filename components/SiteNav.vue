@@ -1,38 +1,33 @@
 <script setup lang="ts">
 import { profile } from '~/content/profile'
 
+// Same-page links (these and every other #chapter link) go through the pixel wave in plugins/motion.client.ts.
 const links = [
     { label: 'About', href: '/#about' },
     { label: 'Work', href: '/#work' },
     { label: 'Experience', href: '/#experience' },
     { label: 'Skills', href: '/#skills' }
 ]
-
-const route = useRoute()
-const { $motion } = useNuxtApp()
-
-// On the home page, glide to the chapter instead of jumping.
-function go(event: MouseEvent, href: string) {
-    if (route.path !== '/' || !$motion) return
-    event.preventDefault()
-    $motion.scrollTo(href.slice(1))
-    history.replaceState(null, '', href)
-}
 </script>
 
 <template>
     <header class="nav">
-        <nav class="container nav__bar" aria-label="Primary">
+        <nav class="nav__bar" aria-label="Primary">
             <NuxtLink class="wordmark" to="/" aria-label="Taha Ayari, home">TAHA AYARI</NuxtLink>
             <ul class="nav__links">
-                <li v-for="(link, index) in links" :key="link.href">
-                    <NuxtLink :to="link.href" @click="go($event, link.href)">{{ link.label }}<span>{{ String(index + 1).padStart(2, '0') }}</span></NuxtLink>
+                <li v-for="link in links" :key="link.href">
+                    <NuxtLink :to="link.href">
+                        {{ link.label }}
+                        <span class="nav__plus" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 5v14M5 12h14" /></svg>
+                        </span>
+                    </NuxtLink>
                 </li>
             </ul>
             <div class="nav__tools">
-                <MotionToggle />
-                <a class="btn btn--ghost btn--small" :href="profile.cv" download>CV</a>
-                <NuxtLink class="btn btn--lead btn--small" to="/#contact" @click="go($event, '/#contact')">Get in touch</NuxtLink>
+                <!-- <MotionToggle /> -->
+                <a class="nav__cv" :href="profile.cv" download>CV</a>
+                <NuxtLink class="btn btn--lead btn--sm" to="/#contact">Get in touch</NuxtLink>
             </div>
         </nav>
     </header>

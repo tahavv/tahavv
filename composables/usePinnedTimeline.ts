@@ -15,9 +15,22 @@ export function usePinnedTimeline(
 
     onMounted(() => {
         const element = root.value
-        if (!element || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+        // Pins require a stable, single-screen composition. On narrow layouts
+        // the same content reads more reliably as an ordinary document flow.
+        if (!element || matchMedia('(prefers-reduced-motion: reduce), (max-width: 60rem)').matches) return
         gsap.registerPlugin(ScrollTrigger)
         element.classList.add('is-pinned')
+        // Beats, after the reference: a layer marked data-in/data-out is on while the pin's
+        // progress sits inside that window. The scroll only picks the beat; CSS plays the
+        // crossfade at its own pace, so a layer never freezes half-faded mid-scroll.
+        const layers = [...element.querySelectorAll<HTMLElement>('[data-in]')]
+        const beats = (progress: number) => layers.forEach((layer) => {
+            const enter = Number(layer.dataset.in)
+            const leave = Number(layer.dataset.out ?? 2)
+            layer.classList.toggle('is-in', progress >= enter && progress < leave)
+            layer.classList.toggle('is-past', progress >= leave)
+        })
+        beats(0)
         context = gsap.context(() => {
             const timeline = gsap.timeline({
                 defaults: { ease: 'none' },
@@ -28,7 +41,11 @@ export function usePinnedTimeline(
                     pin: true,
                     scrub: 0.8,
                     anticipatePin: 1,
-                    onUpdate: (self) => onProgress?.(self.progress)
+                    onUpdate: (self) => {
+                        beats(self.progress)
+                        onProgress?.(self.progress)
+                    },
+                    onRefresh: (self) => beats(self.progress)
                 }
             })
             build(timeline, element)
@@ -39,5 +56,6 @@ export function usePinnedTimeline(
     onBeforeUnmount(() => {
         context?.revert()
         root.value?.classList.remove('is-pinned')
+        root.value?.querySelectorAll('[data-in]').forEach((layer) => layer.classList.remove('is-in', 'is-past'))
     })
 }

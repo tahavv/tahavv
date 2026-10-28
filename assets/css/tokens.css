@@ -9,17 +9,17 @@
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 160px; --section-gap-l: 200px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
 
-  /* Night chapters: near-black navy, one electric blue, white type set light. */
-  --color-paper: oklch(9% 0.022 266); --color-paper-2: oklch(13% 0.03 266); --color-paper-3: oklch(18% 0.04 266);
-  --color-ink: oklch(97.5% 0.006 260); --color-ink-2: oklch(86% 0.015 260); --color-muted: oklch(70% 0.03 262);
-  --color-rule: oklch(30% 0.04 264); --color-rule-2: oklch(40% 0.05 264);
-  --color-accent: oklch(53% 0.22 264); --color-accent-2: oklch(76% 0.13 255); --color-accent-ink: oklch(99% 0.003 260);
+  /* Night chapters: black, one electric blue, white type set light. */
+  --color-paper: #000; --color-paper-2: #0b0d11; --color-paper-3: #15181e;
+  --color-ink: #fff; --color-ink-2: #e3e6eb; --color-muted: #aab1bc;
+  --color-rule: #23272f; --color-rule-2: #5e646e;
+  --color-accent: #2271e3; --color-accent-2: #3d8bff; --color-accent-ink: oklch(99% 0.003 260);
   --color-focus: oklch(78% 0.14 255);
-  --color-glow: oklch(55% 0.22 264);
+  --color-glow: #2f7dff;
   /* Day chapters: a pale sheet with a drawn floor, and the white cards that sit on it. */
-  --color-sheet: oklch(95.5% 0.008 262); --color-sheet-ink: oklch(17% 0.03 266); --color-sheet-ink-2: oklch(32% 0.03 266); --color-sheet-muted: oklch(48% 0.03 264); --color-sheet-rule: oklch(86% 0.015 262);
+  --color-sheet: #e7ecf5; --color-sheet-ink: oklch(17% 0.03 266); --color-sheet-ink-2: oklch(32% 0.03 266); --color-sheet-muted: oklch(48% 0.03 264); --color-sheet-rule: oklch(86% 0.015 262);
   --color-card: oklch(99.5% 0.002 260); --color-card-2: oklch(96.5% 0.008 262);
-  --color-sheet-accent: oklch(50% 0.22 264);
+  --color-sheet-accent: #0f3bc4;
   /* The five project screens, one blend each. */
   --screen-1a: oklch(56% 0.21 264); --screen-1b: oklch(36% 0.16 264);
   --screen-2a: oklch(72% 0.16 25); --screen-2b: oklch(60% 0.2 10);
@@ -33,5 +33,9 @@
   --shadow-screen: 0 60px 90px -40px oklch(25% 0.1 266 / 0.55);
   --shadow-lift: 0 1px 2px oklch(20% 0.03 266 / 0.1), 0 40px 70px -30px oklch(30% 0.12 264 / 0.55);
   --tracking-display: -0.045em; --display-weight: 300;
-  --scene-tile: oklch(57% 0.215 264); --scene-tile-2: oklch(70% 0.16 258); --scene-icon: oklch(99% 0.003 260); --scene-line: oklch(85% 0.04 260);
+  /* The 3D world: night sky bands, the day sky they turn into, grid lines, dust and tiles. */
+  --scene-sky-1: #2f74ff; --scene-sky-2: #dce6f8; --scene-sky-3: #040917;
+  --scene-day-1: #d5e1f6; --scene-day-2: #f7f9fc; --scene-day-3: #e7ecf5;
+  --scene-line: #e6eeff; --scene-line-day: #000; --scene-blue: #3d8bff; --scene-dust: #cfe0ff;
+  --scene-tile: #2f74f0; --scene-face-1: #1a4fe0; --scene-face-2: #bcd7ff; --scene-icon: #fff;
 }

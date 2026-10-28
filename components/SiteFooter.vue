@@ -5,7 +5,7 @@ const year = new Date().getFullYear()
 </script>
 
 <template>
-    <footer class="footer" data-scene="exit">
+    <footer class="footer" data-scene="ship">
         <div class="container">
             <div class="footer__row">
                 <ul class="footer__links">

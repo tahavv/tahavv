@@ -4,11 +4,11 @@
 
 I build software and the platform it runs on: application code in TypeScript, Java and Python, delivered with CI/CD and GitOps to Kubernetes, provisioned with Terraform and Ansible, and watched with Prometheus, Grafana, Quickwit and Jaeger.
 
-[Portfolio](https://taha-ayari.vercel.app) · [LinkedIn](https://www.linkedin.com/in/taha-ayari/) · [CV (PDF)](https://taha-ayari.vercel.app/taha_ayari_cv_en.pdf) · [Email](mailto:taha.ayari@iteam-univ.tn)
+[Portfolio](https://taha-ayari.vercel.app) · [LinkedIn](https://www.linkedin.com/in/taha-ayari-700b823b9) · [CV (PDF)](https://taha-ayari.vercel.app/taha_ayari_cv_en.pdf) · [Email](mailto:taha.ayari@iteam-univ.tn)
 
 ## Experience
 
-- **Software Engineer, freelance, Everbloo** (Feb 2025 to now). A global booking platform for flight, rail and hotel, with NDC, GDS and bedbank integrations, and the GitOps platform it runs on.
+- **Software Engineer, Everbloo** (Feb 2025 to now). A global booking platform for flight, rail and hotel, with NDC, GDS and bedbank integrations, and the GitOps platform it runs on.
 - **Software Engineer, Elite Business** (Jul 2023 to now). A real-time telecom fraud detection platform, CaseTools incident management (used by 10 to 20 engineers), and the ETL pipeline behind CDR analytics. Took releases from monthly and manual to weekly and automated.
 - **Internships, Elite Business** (2022 to 2023). Telecom reporting dashboards and a CDR ETL platform redesign.
 

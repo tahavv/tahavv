@@ -2,10 +2,10 @@ export const profile = {
     name: 'Taha Ayari',
     role: 'Software Engineer, Full-Stack and Cloud',
     headline: 'Taha Ayari. I build software and the platform under it.',
-    summary: 'Software engineer working across application code, CI/CD, Kubernetes, infrastructure as code and observability, in travel tech and telecom.',
+    summary: 'Software engineer with 3+ years designing and shipping full-stack and cloud-native systems: microservices, CI/CD pipelines, Kubernetes and observability, in travel tech and telecom. Red Hat Certified (RHCSA).',
     location: 'Tunis, Tunisia',
     email: 'taha.ayari@iteam-univ.tn',
-    linkedin: 'https://www.linkedin.com/in/taha-ayari/',
+    linkedin: 'https://www.linkedin.com/in/taha-ayari-700b823b9',
     github: 'https://github.com/tahavv',
     cv: '/taha_ayari_cv_en.pdf',
     image: '/images/taha-terminal.jpeg'
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     {
         slug: 'gitops-observability-platform',
         name: 'GitOps delivery of a business observability and incident investigation platform',
-        where: 'Everbloo',
+        where: 'Everbloo-Adenis',
         years: '2025 to now',
         lead: true,
         summary: 'Provisioned, configured and delivered through Git: metrics, logs and traces in one place for investigating incidents.',
@@ -44,6 +44,22 @@ export const projects: Project[] = [
             'Metrics in Prometheus, logs in Quickwit, traces in Jaeger',
             'Grafana dashboards that tie business events to the services behind them'
         ]
+    },
+    {
+        slug: 'multi-provider-booking-platform',
+        name: 'Multi-provider booking platform',
+        where: 'Everbloo-Adenis',
+        years: '2025 to now',
+        summary: 'Flight, rail and hotel booking across providers, through NDC, GDS and bedbank integrations.',
+        stack: ['TypeScript', 'Next.js', 'Vue.js', 'Nuxt.js', 'Express.js', 'SQL', 'PostgreSQL', 'NDC', 'GDS', 'Jenkins', 'Argo CD'],
+        context: 'A global booking platform serving clients across international markets, with each provider speaking its own protocol.',
+        work: [
+            'Features across flight, rail and hotel booking',
+            'NDC and GDS integrations for air, bedbank integrations for hotels',
+            'Microservice delivery pipelines to GCP',
+            'Jenkins and Argo CD in place of ad hoc deployments'
+        ],
+        outcome: ['Fewer differences between environments', 'A repeatable promotion workflow']
     },
     {
         slug: 'telecom-fraud-detection',
@@ -62,22 +78,6 @@ export const projects: Project[] = [
         outcome: ['Faster fraud detection', 'Less manual review for the operations team']
     },
     {
-        slug: 'telecom-cdr-etl-dashboard',
-        name: 'ETL and dashboards for telecom CDR',
-        where: 'Elite Business',
-        years: '2022 to now',
-        summary: 'A pipeline that loads high-volume call detail records into PostgreSQL, and the dashboards built on it.',
-        stack: ['Spark Streaming', 'Apache Hadoop', 'PostgreSQL', 'Angular', 'Spring Boot', 'React', 'Grafana', 'Jenkins'],
-        context: 'Operational analytics for a telecom operator depend on call detail records arriving complete and on time.',
-        work: [
-            'Designed the ETL pipeline from CDR files to PostgreSQL',
-            'Worked on the platform redesign with Spark Streaming and Apache Hadoop',
-            'Built React and Angular dashboard components',
-            'Jenkins pipelines for every service'
-        ],
-        outcome: ['The backbone of the operational analytics dashboards', 'More reliable pipelines and a faster front end']
-    },
-    {
         slug: 'casetools-incident-platform',
         name: 'CaseTools, incident management',
         where: 'Elite Business',
@@ -93,20 +93,20 @@ export const projects: Project[] = [
         outcome: ['Adopted by 10 to 20 engineers', 'Replaced a fully manual process']
     },
     {
-        slug: 'multi-provider-booking-platform',
-        name: 'Multi-provider booking platform',
-        where: 'Everbloo',
-        years: '2025 to now',
-        summary: 'Flight, rail and hotel booking across providers, through NDC, GDS and bedbank integrations.',
-        stack: ['TypeScript', 'Next.js', 'Vue.js', 'Nuxt.js', 'Express.js', 'SQL', 'PostgreSQL', 'NDC', 'GDS', 'Jenkins', 'Argo CD'],
-        context: 'A global booking platform serving clients across international markets, with each provider speaking its own protocol.',
+        slug: 'telecom-cdr-etl-dashboard',
+        name: 'ETL and dashboards for telecom CDR',
+        where: 'Elite Business',
+        years: '2022 to now',
+        summary: 'A pipeline that loads high-volume call detail records into PostgreSQL, and the dashboards built on it.',
+        stack: ['Spark Streaming', 'Apache Hadoop', 'PostgreSQL', 'Angular', 'Spring Boot', 'React', 'Grafana', 'Jenkins'],
+        context: 'Operational analytics for a telecom operator depend on call detail records arriving complete and on time.',
         work: [
-            'Features across flight, rail and hotel booking',
-            'NDC and GDS integrations for air, bedbank integrations for hotels',
-            'Microservice delivery pipelines to GCP',
-            'Jenkins and Argo CD in place of ad hoc deployments'
+            'Designed the ETL pipeline from CDR files to PostgreSQL',
+            'Worked on the platform redesign with Spark Streaming and Apache Hadoop',
+            'Built React and Angular dashboard components',
+            'Jenkins pipelines for every service'
         ],
-        outcome: ['Fewer differences between environments', 'A repeatable promotion workflow']
+        outcome: ['The backbone of the operational analytics dashboards', 'More reliable pipelines and a faster front end']
     },
     {
         slug: 'aws-s3-manager',
@@ -154,11 +154,11 @@ export const experience = [
     {
         start: '2025-02',
         period: 'Feb 2025 to now',
-        role: 'Software Engineer, freelance',
-        company: 'Everbloo',
+        role: 'Software Engineer (Freelance)',
+        company: 'Everbloo-Adenis',
         place: 'Remote',
-        summary: 'A global booking platform for flight, rail and hotel, and the GitOps platform it runs on.',
-        stack: ['JavaScript', 'TypeScript', 'Next.js', 'Vue.js', 'Nuxt.js', 'Express.js', 'SQL', 'NDC and GDS', 'Bedbank integration', 'CI/CD', 'Kubernetes', 'Terraform', 'Ansible', 'Argo CD', 'Prometheus', 'Quickwit', 'Grafana', 'GCP']
+        summary: 'I build features for a global multi-provider booking platform (flight, rail, hotel) with NDC and GDS integrations, own its microservice deployment pipelines to GCP, and replaced ad hoc deployments with a Jenkins and Argo CD promotion workflow.',
+        stack: ['TypeScript', 'Express.js', 'Nuxt.js', 'Next.js', 'Vue.js', 'PostgreSQL', 'NDC and GDS', 'Docker', 'Kubernetes', 'Jenkins', 'Argo CD', 'Terraform', 'Ansible', 'Prometheus', 'Quickwit', 'Grafana', 'GCP']
     },
     {
         start: '2023-07',
@@ -166,7 +166,7 @@ export const experience = [
         role: 'Software Engineer',
         company: 'Elite Business',
         place: 'Tunis',
-        summary: 'Fraud detection, incident management and CDR analytics for telecom operators.',
+        summary: 'I architected a real-time fraud management system, built CaseTools, the incident platform 10 to 20 engineers work in, automated releases from monthly manual deployments to weekly ones, and designed the CDR ETL pipeline behind the analytics dashboards.',
         stack: ['Angular', 'Spring Boot', 'Python', 'PostgreSQL', 'Kafka', 'Redis', 'Docker', 'Kubernetes', 'Jenkins', 'Grafana', 'Prometheus', 'Spark Streaming']
     },
     {
@@ -175,7 +175,7 @@ export const experience = [
         role: 'Full-Stack Developer Intern',
         company: 'Elite Business',
         place: 'Tunis',
-        summary: 'React components for a telecom reporting dashboard, and one Git workflow for the team.',
+        summary: 'I built React components for a telecom reporting dashboard and standardised the team’s Git workflow, which cut integration conflicts.',
         stack: ['React', 'Spring Boot', 'Git', 'Docker', 'MySQL']
     },
     {
@@ -184,20 +184,21 @@ export const experience = [
         role: 'Web Developer Intern',
         company: 'Elite Business',
         place: 'Tunis',
-        summary: 'The redesign of a telecom CDR ETL platform.',
+        summary: 'I worked on the redesign of a telecom CDR ETL platform with Spark Streaming and Apache Hadoop, for more reliable pipelines and a more responsive front end.',
         stack: ['Angular', 'Spring Boot', 'Spark Streaming', 'Apache Hadoop', 'PostgreSQL', 'Docker']
     }
 ]
 
 export const skills = [
-    { title: 'Cloud', items: ['AWS', 'GCP', 'S3', 'SQS', 'SNS'] },
     { title: 'Containers and GitOps', items: ['Docker', 'Kubernetes', 'Argo CD', 'GitOps'] },
+    { title: 'Cloud', items: ['AWS', 'GCP', 'S3', 'SQS', 'SNS'] },
     { title: 'Infrastructure', items: ['Terraform', 'Ansible', 'Linux', 'RHCSA'] },
     { title: 'CI/CD', items: ['Jenkins', 'Argo CD', 'Git'] },
     { title: 'Observability', items: ['Prometheus', 'Grafana', 'Quickwit', 'Jaeger'] },
     { title: 'Backend', items: ['Java', 'Spring Boot', 'Node.js', 'Express.js', 'Python', 'Kafka', 'Redis', 'WebSockets', 'NDC and GDS', 'Bedbank APIs'] },
     { title: 'Frontend', items: ['JavaScript', 'TypeScript', 'Angular', 'React', 'Next.js', 'Vue.js', 'Nuxt.js'] },
-    { title: 'Data', items: ['SQL', 'PostgreSQL', 'MySQL', 'Spark Streaming', 'Apache Hadoop'] }
+    { title: 'Data', items: ['SQL', 'PostgreSQL', 'MySQL', 'Spark Streaming', 'Apache Hadoop'] },
+    { title: 'Practices', items: ['CI/CD', 'REST APIs', 'Microservices', 'Agile and Scrum', 'Jira'] }
 ]
 
 // Figures from the CV, each with what it counts.
@@ -226,9 +227,9 @@ export const pillars = [
 
 // The skills chapter, as layers of one stack, top to bottom.
 export const layers = [
-    { name: 'Cloud', items: ['AWS', 'GCP', 'S3', 'SQS', 'SNS'], icons: ['GCP'] },
     { name: 'Platform', items: ['Kubernetes', 'Docker', 'Terraform', 'Ansible', 'Argo CD', 'Jenkins', 'Linux', 'RHCSA'], icons: ['Kubernetes', 'Terraform', 'Argo CD'] },
+    { name: 'Cloud', items: ['AWS', 'GCP', 'S3', 'SQS', 'SNS'], icons: ['GCP'] },
     { name: 'Observability', items: ['Prometheus', 'Grafana', 'Quickwit', 'Jaeger'], icons: ['Prometheus', 'Grafana'] },
-    { name: 'Application', items: ['TypeScript', 'Angular', 'React', 'Next.js', 'Vue.js', 'Nuxt.js', 'Java', 'Spring Boot', 'Node.js', 'Express.js', 'Python', 'NDC and GDS', 'Bedbank APIs'], icons: ['Angular', 'Spring Boot', 'Next.js'] },
+    { name: 'Application', items: ['TypeScript', 'Angular', 'React', 'Next.js', 'Vue.js', 'Nuxt.js', 'Java', 'Spring Boot', 'Node.js', 'Express.js', 'Python', 'REST APIs', 'Microservices', 'NDC and GDS', 'Bedbank APIs'], icons: ['Angular', 'Spring Boot', 'Next.js'] },
     { name: 'Data', items: ['SQL', 'PostgreSQL', 'MySQL', 'Kafka', 'Redis', 'Spark Streaming', 'Apache Hadoop'], icons: ['PostgreSQL', 'Kafka', 'Redis'] }
 ]

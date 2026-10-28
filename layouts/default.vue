@@ -5,6 +5,7 @@
         <ClientOnly>
             <LazySceneWorld />
             <ChapterIndicator />
+            <CursorCta />
         </ClientOnly>
         <SiteNav />
         <main id="main">
