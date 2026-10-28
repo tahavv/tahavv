@@ -1,1 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
 
+Sitemap: https://taha-ayari.vercel.app/sitemap.xml

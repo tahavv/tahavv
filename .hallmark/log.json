@@ -1,0 +1,139 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "continuous 3D story",
+  "theme": "custom (puture.co.kr reference)",
+  "axes": "dark/grotesk-sans/chromatic-blue",
+  "hero": "Ledge",
+  "nav": "glass bar",
+  "footer": "statement",
+  "imagery": "three.js world of stack tiles; user photos as supplied",
+  "photos": 0,
+  "entry": "hero",
+  "fingerprint": "night-blue-3d-world",
+  "sections": [
+   "hero",
+   "statement",
+   "cards",
+   "figures",
+   "skills",
+   "timeline",
+   "credentials",
+   "form",
+   "footer"
+  ],
+  "signature": "tiles travel through eight formations under every section",
+  "waived": [
+   "49b",
+   "44c",
+   "77"
+  ],
+  "prompt": "portfolio with puture-style continuous motion",
+  "date": "2026-10-28"
+ },
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "story-led portfolio",
+  "theme": "arcade+brutal",
+  "axes": "dark/display+grotesk-heavy/chromatic-ember",
+  "hero": "Ledge",
+  "nav": "slab",
+  "footer": "statement",
+  "imagery": "3D tiles of the stack; user photos as supplied",
+  "photos": 0,
+  "entry": "hero",
+  "fingerprint": "arcade-brutal-3d-story",
+  "sections": [
+   "3d hero",
+   "statement",
+   "table",
+   "figures",
+   "bento cells",
+   "menu rows",
+   "cells",
+   "form grid",
+   "footer"
+  ],
+  "signature": "glossy stack tiles scattering around the statement on scroll",
+  "waived": [
+   "49b",
+   "44c",
+   "77",
+   "F20",
+   "24b"
+  ],
+  "prompt": "portfolio with puture.co.kr-style motion",
+  "date": "2026-10-28"
+ },
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "index-led portfolio",
+  "theme": "arcade+brutal",
+  "axes": "dark/pixel+grotesk-heavy/chromatic-ember",
+  "hero": "Stage",
+  "nav": "slab",
+  "footer": "statement",
+  "imagery": "user photos as supplied",
+  "photos": 0,
+  "entry": "hero",
+  "fingerprint": "arcade-brutal-portfolio",
+  "sections": [
+   "hero",
+   "table",
+   "band+figures",
+   "bento cells",
+   "menu rows",
+   "cells",
+   "form grid",
+   "footer"
+  ],
+  "signature": "RGB-split head over CRT screen with rolling scan bar",
+  "waived": [
+   "49b",
+   "44c",
+   "77",
+   "F20"
+  ],
+  "prompt": "personal portfolio of a cloud, DevOps and full-stack engineer",
+  "date": "2026-10-28"
+ },
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "index-led portfolio",
+  "theme": "terminal",
+  "axes": "dark/mono/moon-cream",
+  "hero": "Stage",
+  "nav": "edge-aligned",
+  "footer": "mast",
+  "imagery": "user photos: glyph print + duotone",
+  "photos": 0,
+  "entry": "hero",
+  "fingerprint": "moonlight-terminal-portfolio",
+  "sections": [
+   "hero",
+   "index",
+   "diff",
+   "rows",
+   "reference",
+   "split",
+   "form",
+   "footer"
+  ],
+  "signature": "portrait printed in stack names",
+  "waived": [
+   "49b",
+   "44c",
+   "77"
+  ],
+  "prompt": "personal portfolio of a cloud, DevOps and full-stack engineer",
+  "date": "2026-10-28"
+ }
+]
