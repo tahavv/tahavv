@@ -17,7 +17,7 @@ const year = new Date().getFullYear()
                 <div class="footer__tools">
                     <!-- The pause control for the moving background (WCAG 2.2.2), and the analytics choice. -->
                     <ClientOnly>
-                        <MotionToggle />
+                        <!-- <MotionToggle /> -->
                         <button v-if="$analytics?.enabled" class="text-button" type="button" @click="$analytics.reset()">Analytics settings</button>
                     </ClientOnly>
                     <p class="footer__legal">© {{ year }} Taha Ayari, {{ profile.location }}</p>
