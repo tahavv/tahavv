@@ -11,7 +11,7 @@ import { certifications, education } from '~/content/profile'
             </div>
             <ul class="credentials__row" data-rise>
                 <li class="credentials__photo">
-                    <img src="/images/taha-iteam.jpeg" width="1200" height="1600" alt="Taha Ayari outside ITeam University, Tunis" loading="lazy">
+                    <NuxtImg src="/images/taha-iteam.jpeg" width="1200" height="1600" sizes="100vw md:50vw lg:320px" alt="Taha Ayari standing outside ITeam University in Tunis" loading="lazy" decoding="async" />
                 </li>
                 <li v-for="entry in education" :key="entry.degree" class="card-white credential" data-tilt>
                     <span class="credential__meta">{{ entry.years }}</span>

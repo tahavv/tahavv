@@ -166,7 +166,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .has-world .sheet :is(h2, h3, p, .chapter-label, .work__count b) { transition: color 0.6s var(--ease-out); }
 /* While the world is still at night over a light chapter, its own type stays light (cards keep theirs). */
 .has-world:not(.is-light) .sheet :is(h2, h3, .work__count b):not(.repo *, .card-white *) { color: var(--color-ink); }
-.has-world:not(.is-light) .sheet :is(p, .chapter-label):not(.repo *, .card-white *) { color: var(--color-ink-2); }
+.has-world:not(.is-light) .sheet :is(p, li, .chapter-label):not(.repo *, .card-white *) { color: var(--color-ink-2); }
 .has-world:not(.is-light) .sheet :is(.work__meta, .work__stack, .work__count) { color: var(--color-muted); }
 .sheet__floor, .stage-floor { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .sheet__floor::before, .stage-floor::before { content: ""; position: absolute; left: -50%; right: -50%; bottom: -10%; height: 90%; background-image: linear-gradient(var(--color-sheet-rule) 1px, transparent 1px), linear-gradient(90deg, var(--color-sheet-rule) 1px, transparent 1px); background-size: 140px 140px; transform: perspective(900px) rotateX(64deg); transform-origin: 50% 100%; -webkit-mask-image: linear-gradient(transparent, var(--color-sheet-ink) 40%); mask-image: linear-gradient(transparent, var(--color-sheet-ink) 40%); }
@@ -284,7 +284,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .stack__row-name span { color: var(--color-muted); font: 500 var(--text-xs)/1 var(--font-outlier); }
 .stack__row-items { color: var(--color-muted); font: 400 var(--text-xs)/1.6 var(--font-outlier); }
 .stack.is-pinned { height: 100svh; padding: 0; display: grid; align-items: center; }
-.stack.is-pinned .stack__list li { opacity: 0.68; }
+.stack.is-pinned .stack__list li .stack__row-items { color: var(--color-muted); }
 .stack.is-pinned .stack__list li.is-active { border-left-color: var(--color-accent-2); opacity: 1; }
 .stack.is-pinned .stack__list li.is-active .stack__row-items { color: var(--color-ink-2); }
 
@@ -488,3 +488,15 @@ html:not(.js) [data-loop-toggle] { display: none; }
    dark, so a chapter scrolled in mid-blend never shows white on pale. Cards keep their own colours. */
 .has-world.is-light :is(main, .footer) { --color-ink: var(--color-sheet-ink); --color-ink-2: var(--color-sheet-ink-2); --color-muted: var(--color-sheet-muted); --color-rule: var(--color-sheet-rule); color: var(--color-ink); }
 .has-world main, .has-world .footer { color: var(--color-ink); transition: color 0.6s var(--ease-out); }
+
+/* Footer tools and the analytics consent card */
+.footer__tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); }
+.consent { position: fixed; left: 50%; bottom: var(--space-lg); z-index: var(--z-modal); display: grid; gap: var(--space-xs); width: min(26rem, calc(100% - 2 * var(--space-md))); padding: var(--space-md); border: 1px solid var(--color-rule-2); border-radius: var(--radius-card); background: var(--color-paper-2); color: var(--color-ink); box-shadow: var(--shadow-lift); transform: translateX(-50%); }
+.consent__title { font: 500 var(--text-sm)/1.2 var(--font-body); }
+.consent__text { color: var(--color-ink-2); font-size: var(--text-sm); line-height: 1.5; }
+.consent__actions { display: flex; gap: var(--space-xs); margin-top: var(--space-2xs); }
+
+/* Error and 404 page */
+.missing { min-height: 100svh; display: grid; align-items: center; padding-block: var(--space-4xl); }
+.missing__inner { display: grid; justify-items: start; gap: var(--space-lg); max-width: 46rem; }
+.missing__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }

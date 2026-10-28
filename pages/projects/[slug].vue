@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { caseStudies, profile } from '~/content/profile'
+import { projectGraph } from '~/lib/structuredData'
 
 const route = useRoute()
 const project = caseStudies.find((item) => item.slug === route.params.slug)
@@ -10,7 +11,9 @@ if (!project) {
 const { public: { siteUrl } } = useRuntimeConfig()
 const url = `${siteUrl}/projects/${project.slug}`
 const title = `${project.name} | Taha Ayari`
-const description = `${project.summary} ${project.where}, ${project.years}. ${project.stack.join(', ')}.`
+// Search results show about 160 characters: the summary first, cut at a word if it runs long.
+const full = `${project.summary} ${project.where}, ${project.years}.`
+const description = full.length <= 160 ? full : `${full.slice(0, 157).replace(/\s+\S*$/, '')}…`
 const others = caseStudies.filter((item) => item.slug !== project.slug)
 
 useSeoMeta({
@@ -21,39 +24,18 @@ useSeoMeta({
     ogType: 'article',
     ogUrl: url,
     ogImage: `${siteUrl}/og.png`,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    ogImageAlt: `${project.name}, a project by Taha Ayari`,
     twitterTitle: title,
     twitterDescription: description,
-    twitterImage: `${siteUrl}/og.png`
+    twitterImage: `${siteUrl}/og.png`,
+    twitterImageAlt: `${project.name}, a project by Taha Ayari`
 })
 
 useHead({
     link: [{ rel: 'canonical', href: url }],
-    script: [{
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@graph': [
-                {
-                    '@type': 'CreativeWork',
-                    '@id': url,
-                    name: project.name,
-                    url,
-                    description: project.summary,
-                    keywords: project.stack.join(', '),
-                    author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: profile.name, url: `${siteUrl}/` },
-                    sourceOrganization: { '@type': 'Organization', name: project.where }
-                },
-                {
-                    '@type': 'BreadcrumbList',
-                    itemListElement: [
-                        { '@type': 'ListItem', position: 1, name: 'Taha Ayari', item: `${siteUrl}/` },
-                        { '@type': 'ListItem', position: 2, name: 'Work', item: `${siteUrl}/#work` },
-                        { '@type': 'ListItem', position: 3, name: project.name, item: url }
-                    ]
-                }
-            ]
-        })
-    }]
+    script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(projectGraph(siteUrl, project)) }]
 })
 </script>
 

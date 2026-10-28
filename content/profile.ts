@@ -5,7 +5,7 @@ export const profile = {
     summary: 'Software engineer with 3+ years designing and shipping full-stack and cloud-native systems: microservices, CI/CD pipelines, Kubernetes and observability, in travel tech and telecom. Red Hat Certified (RHCSA).',
     location: 'Tunis, Tunisia',
     email: 'taha.ayari@iteam-univ.tn',
-    linkedin: 'https://www.linkedin.com/in/taha-ayari-700b823b9',
+    linkedin: 'https://www.linkedin.com/in/taha-ayari/',
     github: 'https://github.com/tahavv',
     cv: '/taha_ayari_cv_en.pdf',
     image: '/images/taha-terminal.jpeg'

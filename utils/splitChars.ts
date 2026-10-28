@@ -1,10 +1,13 @@
 // Split an element's text into one span per character, words kept whole so lines
-// still break between them. Screen readers get the original text through aria-label.
+// still break between them. Screen readers get the original text from a visually hidden copy
+// (aria-label is ignored on plain spans, and headings should keep their text, not a label).
 export function splitChars(element: HTMLElement): HTMLElement[] {
     if (element.dataset.split) return [...element.querySelectorAll<HTMLElement>('.char')]
     const text = (element.textContent || '').replace(/\s+/g, ' ').trim()
     element.dataset.split = '1'
-    element.setAttribute('aria-label', text)
+    const label = document.createElement('span')
+    label.className = 'visually-hidden'
+    label.textContent = text
     const chars: HTMLElement[] = []
     const holder = document.createElement('span')
     holder.setAttribute('aria-hidden', 'true')
@@ -21,6 +24,6 @@ export function splitChars(element: HTMLElement): HTMLElement[] {
         }
         holder.append(wordSpan)
     })
-    element.replaceChildren(holder)
+    element.replaceChildren(label, holder)
     return chars
 }

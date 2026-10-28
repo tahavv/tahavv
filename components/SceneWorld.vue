@@ -27,6 +27,7 @@ const degree = Math.PI / 180
 
 let renderer: THREE.WebGLRenderer | undefined
 let frame = 0
+let disposed = false
 const cleanups: (() => void)[] = []
 
 function token(name: string) {
@@ -67,21 +68,32 @@ const hash = (n: number) => {
     return s - Math.floor(s)
 }
 
-onMounted(() => {
+// Setting the world up is split into short steps that hand the main thread back in between,
+// so building it never blocks a tap or a scroll for long.
+const pause = () => new Promise<void>((resolve) => setTimeout(resolve, 0))
+
+onMounted(async () => {
     if (!canvas.value) return
     restore()
     const reduced = $motion?.reduced ?? matchMedia('(prefers-reduced-motion: reduce)').matches
     const root = document.documentElement
 
     renderer = new THREE.WebGLRenderer({ canvas: canvas.value, antialias: true, powerPreference: 'high-performance' })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75))
+    // Fewer pixels and less dust on phones and low-power devices: the sky and grid shaders run per pixel.
+    const nav = navigator as Navigator & { deviceMemory?: number }
+    const lowPower = window.innerWidth < 768 || (nav.hardwareConcurrency ?? 8) <= 4 || (nav.deviceMemory ?? 8) <= 4
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1 : 1.5))
     renderer.toneMapping = THREE.NoToneMapping
     renderer.outputColorSpace = THREE.SRGBColorSpace
+    await pause()
+    if (disposed) return
 
     const scene = new THREE.Scene()
     const pmrem = new THREE.PMREMGenerator(renderer)
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
     pmrem.dispose()
+    await pause()
+    if (disposed) return
     const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 160)
     camera.position.set(0, 2.2, 9)
     const fill = new THREE.DirectionalLight(0xffffff, 1.05)
@@ -103,6 +115,8 @@ onMounted(() => {
     sky.renderOrder = -10
     scene.add(sky)
 
+    await pause()
+    if (disposed) return
     // The grid: one sheet, or three stacked when a frame asks for layers.
     const sheet = new THREE.Object3D()
     const gridUniforms = {
@@ -128,8 +142,10 @@ onMounted(() => {
     })
     scene.add(gridGroup)
 
+    await pause()
+    if (disposed) return
     // The dust.
-    const DUST = 1800
+    const DUST = lowPower ? 700 : 1800
     const box = new THREE.Vector3(26, 15, 26)
     const dustPositions = new Float32Array(DUST * 3)
     const dustSeeds = new Float32Array(DUST)
@@ -153,6 +169,8 @@ onMounted(() => {
     dust.frustumCulled = false
     scene.add(dust)
 
+    await pause()
+    if (disposed) return
     // The tiles: blue sides, a gradient face, the stack's logo in white.
     const tileGeometry = new RoundedBoxGeometry(1, 1, 0.24, 4, 0.06)
     const iconGeometry = new THREE.PlaneGeometry(0.58, 0.58)
@@ -215,7 +233,11 @@ onMounted(() => {
             material.needsUpdate = true
         })
     }
+    await pause()
+    if (disposed) return
     applyTheme()
+    await pause()
+    if (disposed) return
 
     // The scroll timeline: one frame per [data-scene], at the top of the section (its pin
     // spacer when pinned). Between two frames the blend runs over the last screens before the next.
@@ -641,6 +663,9 @@ onMounted(() => {
     })
     cleanups.push(watch(paused, sync))
 
+    // Compile every shader before the first frame, off the main thread where the browser allows it.
+    await renderer.compileAsync(scene, camera).catch(() => undefined)
+    if (disposed || !canvas.value) return
     resize()
     sync()
     canvas.value.classList.add('is-ready')
@@ -658,6 +683,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+    disposed = true
     cancelAnimationFrame(frame)
     cleanups.forEach((cleanup) => cleanup())
     renderer?.dispose()

@@ -19,6 +19,7 @@ async function submit() {
     try {
         const response = await $fetch<{ message: string }>('/api/contact', { method: 'POST', body: form })
         state.value = 'success'
+        useNuxtApp().$analytics?.track('generate_lead', { form: 'contact' })
         feedback.value = response.message
         Object.assign(form, { name: '', email: '', subject: '', message: '', website: '' })
     } catch (error: any) {
@@ -37,7 +38,7 @@ async function submit() {
                 <p class="contact__lead" data-reveal>Hiring for a full-stack, cloud or DevOps role? I’m open to new opportunities, remote or in Tunis. Send a message, email me, or download my CV.</p>
                 <dl class="contact__facts" data-reveal>
                     <div><dt>Email</dt><dd><a :href="`mailto:${profile.email}`">{{ profile.email }}</a></dd></div>
-                    <div><dt>LinkedIn</dt><dd><a :href="profile.linkedin" rel="me noreferrer" target="_blank">in/taha-ayari-700b823b9</a></dd></div>
+                    <div><dt>LinkedIn</dt><dd><a :href="profile.linkedin" rel="me noreferrer" target="_blank">in/taha-ayari/</a></dd></div>
                     <div><dt>GitHub</dt><dd><a :href="profile.github" rel="me noreferrer" target="_blank">tahavv</a></dd></div>
                     <div><dt>CV</dt><dd><a :href="profile.cv" download>Download the PDF</a></dd></div>
                     <div><dt>Based in</dt><dd>{{ profile.location }}</dd></div>
@@ -46,7 +47,7 @@ async function submit() {
             <div class="contact__side" data-rise>
                 <form ref="formEl" class="form card-white" novalidate @submit.prevent="submit">
                     <div class="form__head">
-                        <img :src="profile.image" width="1200" height="1600" alt="Taha Ayari" loading="lazy">
+                        <NuxtImg :src="profile.image" width="52" height="52" densities="x1 x2" alt="Portrait of Taha Ayari" loading="lazy" decoding="async" />
                         <p><strong>Taha Ayari</strong><span>Software engineer, {{ profile.location }}</span></p>
                     </div>
                     <div class="form__trap" aria-hidden="true">

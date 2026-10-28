@@ -11,7 +11,7 @@ usePinnedTimeline(root, layers.length * 0.8, (timeline, element) => {
     const select = gsap.utils.selector(element)
     timeline
         .fromTo(select('.stack__layer'), { '--lift': 0 }, { '--lift': 1, duration: 1, stagger: 0.04 })
-        .fromTo(select('.stack__panel'), { opacity: 0.4, y: 60 }, { opacity: 1, y: 0, duration: 0.3 }, 0)
+        .fromTo(select('.stack__panel'), { y: 60 }, { y: 0, duration: 0.3 }, 0)
 }, (progress) => { active.value = Math.min(layers.length - 1, Math.floor(progress * layers.length)) })
 </script>
 

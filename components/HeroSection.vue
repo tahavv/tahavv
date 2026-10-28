@@ -13,7 +13,10 @@ onMounted(() => {
         // Each letter rises out of a blur, as the reference's opening line does.
         const chars = gsap.utils.toArray<HTMLElement>('[data-line]').flatMap(splitChars)
         gsap.from(chars, { yPercent: 100, opacity: 0, filter: 'blur(6px)', duration: 1.4, ease: 'power2.out', stagger: 0.022, delay: 0.25 })
-        gsap.from('.hero__tag, .hero__aside > *', { y: 24, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.08, delay: 0.7 })
+        // The lead paragraph is the largest text on the first screen: it only slides, it is never hidden,
+        // so it counts as painted from the first frame (Largest Contentful Paint).
+        gsap.from('.hero__tag, .hero__aside > :not(.hero__lead)', { y: 24, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.08, delay: 0.7 })
+        gsap.from('.hero__lead', { y: 24, duration: 1.1, ease: 'power3.out', delay: 0.7 })
         // The first screen sinks away as the reader leaves it.
         gsap.to('.hero__inner', { yPercent: -25, opacity: 0, ease: 'none', scrollTrigger: { trigger: root.value, start: 'top top', end: 'bottom 20%', scrub: true } })
     }, root.value ?? undefined)
